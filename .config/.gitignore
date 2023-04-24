@@ -1,0 +1,11 @@
+*
+
+!fish/
+!fastfetch/
+!nvim/
+!starship/
+!mpv/
+!lf/
+!gh/
+!lazygit/
+!.gitignore

@@ -1,0 +1,6 @@
+*
+!.gitignore
+!config.fish
+!fish_plugins
+!fish_variables
+!README.md

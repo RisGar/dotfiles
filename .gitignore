@@ -1,0 +1,11 @@
+*
+
+!.config/
+!.hushlogin
+!.tool-versions
+!README.md
+!.spacemacs
+!.gitignore
+!.Brewfile
+
+/.DS_Store
