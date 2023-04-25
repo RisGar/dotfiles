@@ -50,7 +50,7 @@ starship init fish | source
 set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
 ```
 
-### Defaults
+### Environment Variables
 
 - `neovim` as terminal editor
 - `vscode` as visual editor
@@ -66,6 +66,8 @@ set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -gx PAGER "less -r"
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx BAT_THEME "OneHalfDark"
+set -gx CC "/opt/homebrew/bin/gcc-12"
+set -gx CXX "/opt/homebrew/bin/g++-12"
 ```
 
 ### Aliases

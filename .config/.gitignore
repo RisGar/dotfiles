@@ -1,11 +1,12 @@
 *
+!*/
 
-!fish/
-!fastfetch/
-!nvim/
-!starship/
-!mpv/
-!lf/
-!gh/
-!lazygit/
+!fish/**
+!fastfetch/**
+!nvim/**
+!starship/**
+!mpv/**
+!lf/**
+!gh/**
+!lazygit/**
 !.gitignore

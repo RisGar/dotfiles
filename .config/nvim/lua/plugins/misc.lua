@@ -1,6 +1,7 @@
 return {
   {
     "wakatime/vim-wakatime",
+    lazy = false
   },
   {
     "Exafunction/codeium.vim",
@@ -19,5 +20,6 @@ return {
         return vim.fn["codeium#Clear"]()
       end, { expr = true })
     end,
+    lazy = false
   },
 }
