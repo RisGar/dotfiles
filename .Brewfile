@@ -41,7 +41,8 @@ brew "chafa"   # image pv for lf
 brew "poppler" # pdf pv for lf
 brew "ripgrep"
 brew "jesseduffield/lazygit/lazygit"
-brew "neovim", args: ["HEAD"]
+brew "neovim"
+brew "gnu-sed" # neovim spectre
 brew "zoxide"
 brew "aria2"
 
@@ -80,6 +81,12 @@ brew "exiftool"
 
 brew "aichat"
 
+# Stable Diffusion
+brew "cmake"
+brew "protobuf"
+brew "wget"
+brew "python@3.10"
+
 # cask
 cask "basictex"
 cask "microsoft/git/git-credential-manager-core"
@@ -88,7 +95,6 @@ cask "macfuse"
 cask "qlvideo"
 cask "tempbox"
 cask "temurin17"
-cask "yacreader"
 cask "eloston-chromium"
 
 # brew "gnu-tar"
