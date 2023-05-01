@@ -75,7 +75,7 @@ return {
     opts = function()
       return {
         options = {
-          theme = "auto",
+          theme = "onedark",
           globalstatus = true,
           disabled_filetypes = { statusline = { "dashboard", "alpha" } },
         },

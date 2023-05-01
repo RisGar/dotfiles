@@ -1,17 +1,15 @@
-set -gx fish_user_paths $(/opt/homebrew/bin/brew --prefix python)/libexec/bin /Users/rishab/go/bin /Users/rishab/.asdf/shims /opt/homebrew/opt/asdf/libexec/bin /opt/homebrew/sbin /Users/rishab/.emacs.d/bin /Users/rishab/.local/bin /Users/rishab/.cargo/bin '/Applications/Visual Studio Code.app/Contents/Resources/app/bin' /opt/homebrew/bin /opt/homebrew/opt/fzf/bin
-
-source /opt/homebrew/opt/asdf/libexec/asdf.fish
-
-source ~/.opam/opam-init/init.fish >/dev/null 2>/dev/null; or true
+set -gx fish_user_paths $(/opt/homebrew/bin/brew --prefix python)/libexec/bin /Users/rishab/go/bin /Users/rishab/.asdf/shims /opt/homebrew/opt/asdf/libexec/bin /opt/homebrew/sbin /Users/rishab/.emacs.d/bin /Users/rishab/.local/bin /Users/rishab/.cargo/bin '/Applications/Visual Studio Code.app/Contents/Resources/app/bin' /opt/homebrew/bin /opt/homebrew/opt/fzf/bin /opt/homebrew/opt/llvm/bin
 
 zoxide init fish | source
-
 starship init fish | source
 set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
 
+source /opt/homebrew/opt/asdf/libexec/asdf.fish
+source ~/.opam/opam-init/init.fish >/dev/null 2>/dev/null; or true
+
 set -gx EDITOR nvim
 set -gx VISUAL nvim
-set -gx GPG_TTY (tty) # https://www.gnupg.org/documentation/manuals/gnupg/Invoking-GPG_002dAGENT.html
+set -gx GPG_TTY (tty)
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -gx PAGER "less -r"
 set -gx XDG_CONFIG_HOME "$HOME/.config"
@@ -30,20 +28,14 @@ alias rm='rm -i'
 
 alias cd="z"
 alias ..='z ..'
-alias ...='z ../..'
-alias .3='z ../../..'
-alias .4='z ../../../..'
-alias .5='z ../../../../..'
 
-alias man='batman'
-function find
-  fd $argv -X bat
+function fd
+  command fd $argv -X bat
 end
 
-alias bg='batgrep'
-
-alias config='git --git-dir=$HOME/Documents/Programming/dotfiles --work-tree=$HOME'
-alias configui='lazygit --git-dir=$HOME/Documents/Programming/dotfiles --work-tree=$HOME'
+# alias config='git --git-dir=$HOME/Documents/Programming/dotfiles --work-tree=$HOME'
+# alias configui='lazygit --git-dir=$HOME/Documents/Programming/dotfiles --work-tree=$HOME'
+alias yadmui="yadm enter lazygit"
 
 function reload
   crtangle ~/.config/fish/README.md
@@ -66,7 +58,7 @@ set fzf_preview_dir_cmd exa --all --color=always
 set fzf_fd_opts --hidden --exclude=.git
 fzf_configure_bindings --directory=\cf
 
-function lf
+function lf -d "Launch lf file manager with exit dir cd support"
   set tmp (mktemp)
   command lf -last-dir-path=$tmp $argv
 
@@ -80,20 +72,6 @@ function lf
   command rm -f -- $tmp
 end
 
-complete -c lf -o command -r -d 'command to execute on client initialization'
-complete -c lf -o config -r -d 'path to the config file (instead of the usual paths)'
-complete -c lf -o cpuprofile -r -d 'path to the file to write the CPU profile'
-complete -c lf -o doc -d 'show documentation'
-complete -c lf -o last-dir-path -r -d 'path to the file to write the last dir on exit (to use for cd)'
-complete -c lf -o log -r -d 'path to the log file to write messages'
-complete -c lf -o memprofile -r -d 'path to the file to write the memory profile'
-complete -c lf -o remote -x -d 'send remote command to server'
-complete -c lf -o selection-path -r -d 'path to the file to write selected files on open (to use as open file dialog)'
-complete -c lf -o server -d 'start server (automatic)'
-complete -c lf -o single -d 'start a client without server'
-complete -c lf -o version -d 'show version'
-complete -c lf -o help -d 'show help'
-
 function fish_user_key_bindings
   fish_vi_key_bindings insert
 end
@@ -104,7 +82,7 @@ set fish_cursor_replace_one underscore
 set fish_cursor_visual block
 
 bind -M visual -m default y "fish_clipboard_copy; commandline -f end-selection repaint-mode"
-bind p forward-char "commandline -i ( pbpaste; echo )[1]" # todo
+bind p forward-char "commandline -i ( pbpaste; echo )[1]" # TODO
 
 set TERM xterm-256color
 

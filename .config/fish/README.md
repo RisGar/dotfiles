@@ -12,56 +12,61 @@ My configuration for the fish shell, which I use as my user shell on my MacBook.
 
 ## Requirements
 
+### Core Packages
+
+Without these, using the config will throw errors, as environment variables will not function correctly or basic commands will not work.
+
 - [fish-shell/fish-shell](https://github.com/fish-shell/fish-shell)
-- [neovim/neovim](https://github.com/neovim/neovim)
-- [ogham/exa](https://github.com/ogham/exa)
-- [BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep)
-- [junegunn/fzf](https://github.com/junegunn/fzf)
-- [sharkdp/fd](https://github.com/sharkdp/fd)
-- [sharkdp/bat](https://github.com/sharkdp/bat)
-- [eth-p/bat-extras](https://github.com/eth-p/bat-extras)
-- [PatrickF1/fzf.fish](https://github.com/PatrickF1/fzf.fish)
-- [microsoft/vscode](https://github.com/microsoft/vscode)
-- [RisGar/crtangle](https://github.com/RisGar/crtangle)
-- [ajeetdsouza/zoxide](https://github.com/ajeetdsouza/zoxide)
-- [gokcehan/lf](https://github.com/gokcehan/lf)
+- [neovim/neovim](https://github.com/neovim/neovim): Default editor ([see my config](../nvim/README.md))
+
+- [ogham/exa](https://github.com/ogham/exa): `ls` replacement
+- [ajeetdsouza/zoxide](https://github.com/ajeetdsouza/zoxide): `cd` replacement
+- [sharkdp/bat](https://github.com/sharkdp/bat): `cat` replacement
+
+- [starship/starship](https://github.com/starship/starship): custom prompt ([see my config](../starship/README.md))
+
+- [Homebrew/brew](https://github.com/Homebrew/brew): Technically not required, but some paths are hard-coded to their `brew` directories
+- [brew gcc](https://formulae.brew.sh/formula/gcc): Replaces default C(++) compiler to support newer versions of C++
+
+- [Any Nerd Font](https://www.nerdfonts.com/): Required to display icons correctly
+
+### Additional Packages
+
+Additional functions for the fish shell.
+While technically not required, these are all recommended to install in order for this config to work properly without removing some lines of code.
+
+- [RisGar/crtangle](https://github.com/RisGar/crtangle): tangles this (and other) Markdown file(s) to their respective config files. Necessary if you want to edit configs through `README.md` files
+
+- [PatrickF1/fzf.fish](https://github.com/PatrickF1/fzf.fish): search through fish's history and find files directly inside of the shell. Requires some additional dependences, which are by themselves useful tools to search through your files:
+  - [junegunn/fzf](https://github.com/junegunn/fzf): main `fzf` client
+  - [BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep): `grep` replacement
+  - [sharkdp/fd](https://github.com/sharkdp/fd): `find` replacement
+
+- [gokcehan/lf](https://github.com/gokcehan/lf): terminal file manager ([see my config](../lf/README.md))
+- [TheLocehiliosan/yadm](https://github.com/TheLocehiliosan/yadm): dotfiles manager
+- [LinusDierheimer/fastfetch: Like neofetch, but much faster because written in C.](https://github.com/LinusDierheimer/fastfetch)
 
 ## Config
 
 ### Path and Hooks
 
-- fish user path
-- `asdf` version manager
-- `opam` (ocaml)
-- `zoxide`
-- iTerm2 hook
-- `starship` prompt
-
 ```fish
-set -gx fish_user_paths $(/opt/homebrew/bin/brew --prefix python)/libexec/bin /Users/rishab/go/bin /Users/rishab/.asdf/shims /opt/homebrew/opt/asdf/libexec/bin /opt/homebrew/sbin /Users/rishab/.emacs.d/bin /Users/rishab/.local/bin /Users/rishab/.cargo/bin '/Applications/Visual Studio Code.app/Contents/Resources/app/bin' /opt/homebrew/bin /opt/homebrew/opt/fzf/bin
-
-source /opt/homebrew/opt/asdf/libexec/asdf.fish
-
-source ~/.opam/opam-init/init.fish >/dev/null 2>/dev/null; or true
+set -gx fish_user_paths $(/opt/homebrew/bin/brew --prefix python)/libexec/bin /Users/rishab/go/bin /Users/rishab/.asdf/shims /opt/homebrew/opt/asdf/libexec/bin /opt/homebrew/sbin /Users/rishab/.emacs.d/bin /Users/rishab/.local/bin /Users/rishab/.cargo/bin '/Applications/Visual Studio Code.app/Contents/Resources/app/bin' /opt/homebrew/bin /opt/homebrew/opt/fzf/bin /opt/homebrew/opt/llvm/bin
 
 zoxide init fish | source
-
 starship init fish | source
 set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
+
+source /opt/homebrew/opt/asdf/libexec/asdf.fish
+source ~/.opam/opam-init/init.fish >/dev/null 2>/dev/null; or true
 ```
 
 ### Environment Variables
 
-- `neovim` as terminal editor
-- `vscode` as visual editor
-- `bat` as manpager
-- `less` as pager
-- set config home
-
 ```fish
 set -gx EDITOR nvim
 set -gx VISUAL nvim
-set -gx GPG_TTY (tty) # https://www.gnupg.org/documentation/manuals/gnupg/Invoking-GPG_002dAGENT.html
+set -gx GPG_TTY (tty)
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -gx PAGER "less -r"
 set -gx XDG_CONFIG_HOME "$HOME/.config"
@@ -73,15 +78,6 @@ set -gx CXX "/opt/homebrew/bin/g++-12"
 ### Aliases
 
 Aliases and functions to shorten or modify often-used commands.
-
-- `exa` instead of `ls`
-- `cp`, `mv` and `rm` are set to display a prompt before overwriting.
-- `zoxide` instead of `cd` and `.` aliases
-- `bat` instead of `cat` when possible
-- `batgrep` alias
-- Dotfiles bare repo config
-- Tangle and reload fish config
-- Use GCC instead of Apple clang for `gcc` and `g++` command
 
 ```fish
 alias ls='exa -a --color=always --group-directories-first --icons'
@@ -95,20 +91,14 @@ alias rm='rm -i'
 
 alias cd="z"
 alias ..='z ..'
-alias ...='z ../..'
-alias .3='z ../../..'
-alias .4='z ../../../..'
-alias .5='z ../../../../..'
 
-alias man='batman'
-function find
-  fd $argv -X bat
+function fd
+  command fd $argv -X bat
 end
 
-alias bg='batgrep'
-
-alias config='git --git-dir=$HOME/Documents/Programming/dotfiles --work-tree=$HOME'
-alias configui='lazygit --git-dir=$HOME/Documents/Programming/dotfiles --work-tree=$HOME'
+# alias config='git --git-dir=$HOME/Documents/Programming/dotfiles --work-tree=$HOME'
+# alias configui='lazygit --git-dir=$HOME/Documents/Programming/dotfiles --work-tree=$HOME'
+alias yadmui="yadm enter lazygit"
 
 function reload
   crtangle ~/.config/fish/README.md
@@ -130,9 +120,6 @@ alias g++="g++-12"
 
 #### fzf
 
-- `exa` instead of `ls` for `fzf`
-- Search directory with `C-f`
-
 ```fish
 set -gx FZF_DEFAULT_OPTS '--cycle --layout=reverse'
 
@@ -143,11 +130,8 @@ fzf_configure_bindings --directory=\cf
 
 #### lf file manager
 
-- Open dir on exit
-- `lf` completion
-
 ```fish
-function lf
+function lf -d "Launch lf file manager with exit dir cd support"
   set tmp (mktemp)
   command lf -last-dir-path=$tmp $argv
 
@@ -160,28 +144,11 @@ function lf
 
   command rm -f -- $tmp
 end
-
-complete -c lf -o command -r -d 'command to execute on client initialization'
-complete -c lf -o config -r -d 'path to the config file (instead of the usual paths)'
-complete -c lf -o cpuprofile -r -d 'path to the file to write the CPU profile'
-complete -c lf -o doc -d 'show documentation'
-complete -c lf -o last-dir-path -r -d 'path to the file to write the last dir on exit (to use for cd)'
-complete -c lf -o log -r -d 'path to the log file to write messages'
-complete -c lf -o memprofile -r -d 'path to the file to write the memory profile'
-complete -c lf -o remote -x -d 'send remote command to server'
-complete -c lf -o selection-path -r -d 'path to the file to write selected files on open (to use as open file dialog)'
-complete -c lf -o server -d 'start server (automatic)'
-complete -c lf -o single -d 'start a client without server'
-complete -c lf -o version -d 'show version'
-complete -c lf -o help -d 'show help'
 ```
 
 ### Keybinds
 
 Configuration for fish to work with vi-style bindings.
-
-- vi mode config
-- vi mode global yank and paste (TODO)
 
 ```fish
 function fish_user_key_bindings
@@ -194,14 +161,10 @@ set fish_cursor_replace_one underscore
 set fish_cursor_visual block
 
 bind -M visual -m default y "fish_clipboard_copy; commandline -f end-selection repaint-mode"
-bind p forward-char "commandline -i ( pbpaste; echo )[1]" # todo
+bind p forward-char "commandline -i ( pbpaste; echo )[1]" # TODO
 ```
 
 ### Appearance
-
-- Terminal colours
-- open `fastfetch` on start
-- OneDark theme
 
 ```fish
 set TERM xterm-256color
