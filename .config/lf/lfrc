@@ -12,7 +12,6 @@ set ignorecase true
 set previewer ~/Documents/Programming/crpreview/bin/crpreview
 map i $ ~/Documents/Programming/crpreview/bin/crpreview $f | less -R
 
-
 # layout
 cmd recol ${{
     if [ $(tput cols) -le 80 ]; then

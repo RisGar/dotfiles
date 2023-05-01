@@ -9,9 +9,11 @@ tap "homebrew/core"
 tap "homebrew/services"
 tap "jesseduffield/lazygit"
 tap "microsoft/git"
+tap "veelenga/tap"
 
 # languages
 brew "crystal"
+brew "veelenga/tap/ameba" # crystal linter
 brew "deno"
 brew "elixir"
 brew "clojure/tools/clojure"
@@ -45,6 +47,7 @@ brew "neovim"
 brew "gnu-sed" # neovim spectre
 brew "zoxide"
 brew "aria2"
+brew "wakatime-cli"
 
 # archives
 brew "lrzip"
@@ -73,9 +76,7 @@ brew "mono" # unity vscode support
 
 brew "tldr"
 
-brew "wakatime-cli"
-
-brew "yadm"
+brew "yadm" # dotfiles management
 
 brew "exiftool"
 
@@ -88,15 +89,17 @@ brew "wget"
 brew "python@3.10"
 
 # cask
-cask "basictex"
+cask "basictex" # Small LaTeX
 cask "microsoft/git/git-credential-manager-core"
 cask "iterm2"
-cask "macfuse"
-cask "qlvideo"
-cask "tempbox"
+cask "macfuse" # Mount external filesystems (required for rsync)
+cask "qlvideo" # QuickLook for Videos
+cask "tempbox" # Termporary Mail Wrapper
 cask "temurin17"
 cask "eloston-chromium"
+cask "macvim"
 
-# brew "gnu-tar"
-# brew "entr"
-# brew "cmake"
+brew "gnu-tar"
+brew "entr"
+brew "imagemagick"
+brew "trash"

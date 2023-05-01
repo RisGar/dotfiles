@@ -1,8 +1,9 @@
 set -gx fish_user_paths $(/opt/homebrew/bin/brew --prefix python)/libexec/bin /Users/rishab/go/bin /Users/rishab/.asdf/shims /opt/homebrew/opt/asdf/libexec/bin /opt/homebrew/sbin /Users/rishab/.emacs.d/bin /Users/rishab/.local/bin /Users/rishab/.cargo/bin '/Applications/Visual Studio Code.app/Contents/Resources/app/bin' /opt/homebrew/bin /opt/homebrew/opt/fzf/bin /opt/homebrew/opt/llvm/bin
 
-zoxide init fish | source
 starship init fish | source
 set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
+
+zoxide init fish | source
 
 source /opt/homebrew/opt/asdf/libexec/asdf.fish
 source ~/.opam/opam-init/init.fish >/dev/null 2>/dev/null; or true
@@ -33,14 +34,14 @@ function fd
   command fd $argv -X bat
 end
 
-# alias config='git --git-dir=$HOME/Documents/Programming/dotfiles --work-tree=$HOME'
-# alias configui='lazygit --git-dir=$HOME/Documents/Programming/dotfiles --work-tree=$HOME'
 alias yadmui="yadm enter lazygit"
 
 function reload
   crtangle ~/.config/fish/README.md
   source ~/.config/fish/config.fish
 end
+
+alias trash='trash -F'
 
 alias brewfile='brew bundle --global -fv'
 

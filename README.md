@@ -1,17 +1,21 @@
 # dotfiles
 
-My configuration files for my MacBook.
+My configuration files for my MacBook (AArch64).
 
-Configs I use:
+## Configurations & Scripts
 
 - fish shell
-- mpv
-- neofetch
+- fastfetch
+- github cli
+- lazygit
+- lf file manager
 - neovim (lazyvim)
-- spacemacs
 - starship prompt
+- yt-dlp
+- asdf (node.js)
+- mpv (unfinished)
 
-## Tools
+## Installation, Requirements, etc.
 
-I use [asdf](https://asdf-vm.com/) to manage my node versions. The respective version can be seen in `.tools-versions`.
+Most configs should work on any Unix system. For more information, check out the `README.md` for each config.
 

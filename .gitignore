@@ -10,5 +10,8 @@
 !.gitignore
 !.Brewfile
 !.gitconfig
+!LICENSE
+!.bashrc
+!.gvimrc
 
 **/.DS_Store
