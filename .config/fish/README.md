@@ -31,14 +31,19 @@ My configuration for the fish shell on macOS.
 - [ali-rantakari/trash](https://github.com/ali-rantakari/trash): cli to move into `~/.Trash` with additional features
 - [yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp): `youtube-dl` fork with additional features
 
-Excluded are paths or hooks which do not directly modify the behavior of the shell.
+Excluded from this list are paths or hooks which do not directly modify the behavior of the shell.
 
 ## Config
 
-### Path and Hooks
+### Variables and Hooks
 
 ```fish
-set -gx fish_user_paths $(/opt/homebrew/bin/brew --prefix python)/libexec/bin /Users/rishab/go/bin /Users/rishab/.asdf/shims /opt/homebrew/opt/asdf/libexec/bin /opt/homebrew/sbin /Users/rishab/.emacs.d/bin /Users/rishab/.local/bin /Users/rishab/.cargo/bin '/Applications/Visual Studio Code.app/Contents/Resources/app/bin' /opt/homebrew/bin /opt/homebrew/opt/fzf/bin /opt/homebrew/opt/llvm/bin
+set -gx XDG_CONFIG_HOME "$HOME/.config"
+set -gx XDG_DATA_HOME "$HOME/.local/share"
+set -gx XDG_STATE_HOME "$HOME/.local/state"
+set -gx XDG_CACHE_HOME "$HOME/.cache"
+
+set -gx fish_user_paths $(/opt/homebrew/bin/brew --prefix python)/libexec/bin "$XDG_DATA_HOME/go/bin" /Users/rishab/.asdf/shims /opt/homebrew/opt/asdf/libexec/bin /opt/homebrew/sbin /Users/rishab/.emacs.d/bin /Users/rishab/.local/bin /Users/rishab/.cargo/bin '/Applications/Visual Studio Code.app/Contents/Resources/app/bin' /opt/homebrew/bin /opt/homebrew/opt/fzf/bin /opt/homebrew/opt/llvm/bin
 
 starship init fish | source
 set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
@@ -46,21 +51,28 @@ set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
 zoxide init fish | source
 
 source /opt/homebrew/opt/asdf/libexec/asdf.fish
-source ~/.opam/opam-init/init.fish >/dev/null 2>/dev/null; or true
-```
+source "$XDG_DATA_HOME/opam/opam-init/init.fish" > /dev/null 2> /dev/null; or true
 
-### Environment Variables
-
-```fish
 set -gx EDITOR nvim
 set -gx VISUAL nvim
-set -gx GPG_TTY (tty)
+set -gx GPG_TTY (tty) # https://github.com/keybase/keybase-issues/issues/2798
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -gx PAGER "less -r"
-set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx BAT_THEME "OneHalfDark"
-set -gx CC "/opt/homebrew/bin/gcc-12"
-set -gx CXX "/opt/homebrew/bin/g++-12"
+set -gx CC "/opt/homebrew/bin/gcc-13"
+set -gx CXX "/opt/homebrew/bin/g++-13"
+
+set -gx GEM_HOME "$XDG_DATA_HOME/gem"
+set -gx OPAMROOT "$XDG_DATA_HOME/opam"
+set -gx NPM_CONFIG_USERCONFIG "$XDG_CONFIG_HOME/npm/npmrc"
+set -gx GVIMINIT 'let $MYGVIMRC = !has("nvim") ? "$XDG_CONFIG_HOME/vim/gvimrc" : "$XDG_CONFIG_HOME/nvim/init.gvim" | so $MYGVIMRC'
+set -gx NODE_REPL_HISTORY "$XDG_DATA_HOME/node_repl_history"
+set -gx LESSHISTFILE "$XDG_CACHE_HOME/less/history"
+set -gx GOPATH "$XDG_DATA_HOME/go"
+set -gx GNUPGHOME "$XDG_DATA_HOME/gnupg"
+set -gx CABAL_CONFIG "$XDG_CONFIG_HOME/cabal/config"
+set -gx CABAL_DIR "$XDG_DATA_HOME/cabal"
+set -gx ASDF_DATA_DIR "$XDG_DATA_HOME/asdf"
 ```
 
 ### Aliases
@@ -68,10 +80,10 @@ set -gx CXX "/opt/homebrew/bin/g++-12"
 Aliases and functions to shorten or modify often-used commands.
 
 ```fish
-alias ls='exa -a --color=always --group-directories-first --icons'
-alias la='exa -a --color=always --group-directories-first --icons' # all files and dirs
-alias ll='exa -al --color=always --group-directories-first --icons' # long format
-alias lt='exa -aT --color=always --group-directories-first --icons' # tree listing
+alias ls='exa -aF1 --color=always --group-directories-first --icons'
+alias la='exa -aF --color=always --group-directories-first --icons' # all files and dirs
+alias ll='exa -alF --color=always --group-directories-first --icons' # long format
+alias lt='exa -aTF --color=always --group-directories-first --icons' # tree listing
 
 alias cp="cp -i"
 alias mv='mv -i'
@@ -98,10 +110,9 @@ alias brewfile='brew bundle --global -fv'
 alias spotify-dlp="yt-dlp --config-locations ~/.config/yt-dlp/config-spotify"
 
 alias vim='nvim'
-alias lxr='iex -S mix'
 
-alias gcc='gcc-12'
-alias g++="g++-12"
+alias gcc='gcc-13'
+alias g++="g++-13"
 ```
 
 ### Extensions & Software

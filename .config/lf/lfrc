@@ -58,7 +58,7 @@ cmd mkfile %{{
 }}
 
 # trash
-cmd trash %mv $f ~/.Trash
+cmd trash %trash -F $fx
 
 # zoxide
 cmd z %{{
