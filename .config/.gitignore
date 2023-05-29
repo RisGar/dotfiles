@@ -1,13 +1,20 @@
 *
 !*/
 
-!fish/**
+!cabal/**
+!clojure/**
 !fastfetch/**
+!fish/**
+!gh/**
+!git/**
+!lazygit/**
+!lf/**
+!mpv/**
 !nvim/**
 !starship/**
-!mpv/**
-!lf/**
-!gh/**
-!lazygit/**
+!vim/**
+!yadm/**
 !yt-dlp/**
 !.gitignore
+
+**/.DS_Store

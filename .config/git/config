@@ -1,0 +1,25 @@
+[user]
+	name = Rishab Garg
+	email = rishgarg@gmail.com
+	signingkey = 5E8652BE9175568D
+[core]
+	editor = nvim
+	autocrlf = false
+[commit]
+	gpgsign = true
+[gpg]
+	program = /opt/homebrew/bin/gpg
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[pull]
+	rebase = false
+[credential]
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[init]
+	defaultBranch = master
