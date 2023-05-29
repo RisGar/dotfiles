@@ -1,17 +1,14 @@
 *
 !*/
 
-!.config/
-!.config/*
+#!.config/
+!.config/**
 !.hushlogin
 !.tool-versions
 !README.md
-!.spacemacs
 !.gitignore
 !.Brewfile
-!.gitconfig
 !LICENSE
 !.bashrc
-!.gvimrc
 
 **/.DS_Store
