@@ -3,7 +3,7 @@ set -gx XDG_DATA_HOME "$HOME/.local/share"
 set -gx XDG_STATE_HOME "$HOME/.local/state"
 set -gx XDG_CACHE_HOME "$HOME/.cache"
 
-set -gx fish_user_paths $(/opt/homebrew/bin/brew --prefix python)/libexec/bin "$XDG_DATA_HOME/go/bin" /Users/rishab/.asdf/shims /opt/homebrew/opt/asdf/libexec/bin /opt/homebrew/sbin /Users/rishab/.emacs.d/bin /Users/rishab/.local/bin /Users/rishab/.cargo/bin '/Applications/Visual Studio Code.app/Contents/Resources/app/bin' /opt/homebrew/bin /opt/homebrew/opt/fzf/bin /opt/homebrew/opt/llvm/bin
+set -gx fish_user_paths /opt/homebrew/opt/llvm/bin $(/opt/homebrew/bin/brew --prefix python)/libexec/bin "$XDG_DATA_HOME/go/bin" /Users/rishab/.local/share/asdf/shims /opt/homebrew/opt/asdf/libexec/bin /opt/homebrew/sbin /Users/rishab/.emacs.d/bin /Users/rishab/.local/bin /Users/rishab/.cargo/bin '/Applications/Visual Studio Code.app/Contents/Resources/app/bin' /opt/homebrew/bin /opt/homebrew/opt/fzf/bin
 
 starship init fish | source
 set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
@@ -11,7 +11,10 @@ set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
 zoxide init fish | source
 
 source /opt/homebrew/opt/asdf/libexec/asdf.fish
+
 source "$XDG_DATA_HOME/opam/opam-init/init.fish" > /dev/null 2> /dev/null; or true
+
+eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 
 set -gx EDITOR nvim
 set -gx VISUAL nvim
@@ -19,8 +22,10 @@ set -gx GPG_TTY (tty) # https://github.com/keybase/keybase-issues/issues/2798
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -gx PAGER "less -r"
 set -gx BAT_THEME "OneHalfDark"
-set -gx CC "/opt/homebrew/bin/gcc-13"
-set -gx CXX "/opt/homebrew/bin/g++-13"
+set -gx CC "/opt/homebrew/opt/llvm/bin/clang"
+set -gx CXX "/opt/homebrew/opt/llvm/bin/clang++"
+
+set -gx HOMEBREW_BUNDLE_MAS_SKIP
 
 set -gx GEM_HOME "$XDG_DATA_HOME/gem"
 set -gx OPAMROOT "$XDG_DATA_HOME/opam"
@@ -33,6 +38,7 @@ set -gx GNUPGHOME "$XDG_DATA_HOME/gnupg"
 set -gx CABAL_CONFIG "$XDG_CONFIG_HOME/cabal/config"
 set -gx CABAL_DIR "$XDG_DATA_HOME/cabal"
 set -gx ASDF_DATA_DIR "$XDG_DATA_HOME/asdf"
+set -gx KAGGLE_CONFIG_DIR "$XDG_CONFIG_HOME/kaggle"
 
 alias ls='exa -aF1 --color=always --group-directories-first --icons'
 alias la='exa -aF --color=always --group-directories-first --icons' # all files and dirs
@@ -63,9 +69,9 @@ alias brewfile='brew bundle --global -fv'
 
 alias spotify-dlp="yt-dlp --config-locations ~/.config/yt-dlp/config-spotify"
 
-alias vim='nvim'
+alias vim="nvim"
 
-alias gcc='gcc-13'
+alias gcc="gcc-13"
 alias g++="g++-13"
 
 set -gx FZF_DEFAULT_OPTS '--cycle --layout=reverse'

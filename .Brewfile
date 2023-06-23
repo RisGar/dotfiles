@@ -15,21 +15,23 @@ tap "veelenga/tap"
 ##
 ## Languages
 ##
-brew "crystal"               # crystal lang
 brew "veelenga/tap/ameba"    # crystal linter
 brew "deno"                  # ts & js runtime
-brew "elixir"                # elixir lang
+brew "erlang"                # erlang for elixir
 cask "livebook"              # elixir notebook
-brew "gleam"                 # gleam lang
 brew "clojure/tools/clojure" # clojure
 brew "go"                    # golang
 brew "luarocks"              # lua
 brew "python@3.11"           # brew python
 brew "opam"                  # ocaml
-brew "asdf"                  # nodejs
+brew "asdf"                  # nodejs, elixir, crystal
 brew "rust"                  # rustup
 cask "temurin17"             # java
 brew "odin"                  # odin lang
+brew "perl"                  # brew perl
+brew "gcc"                   # C compiler
+brew "llvm"                  # C compiler
+brew "scala"                 # scala
 
 ##
 ## Terminal
@@ -52,9 +54,10 @@ cask "macvim"             # gui vim client
 cask "visual-studio-code" # code editor
 brew "bat"                # cat replacement
 brew "glow"               # markdown previewer
-cask "basictex"           # Small LaTeX
 cask "qlvideo"            # QuickLook for Videos
 cask "qlmarkdown"         # QuickLook for Markdown
+cask "zed"                # editor written in rust
+# cask "mactex"           # LaTeX // Prevent redownload
 
 # management
 brew "jesseduffield/lazygit/lazygit" # terminal git client
@@ -79,8 +82,9 @@ brew "xz"
 brew "brotli"
 
 # media
-brew "yt-dlp" # youtube-dl replacement
-brew "ffmpeg" # media converter
+brew "yt-dlp"    # youtube-dl replacement
+cask "phantomjs" # headless browser for yt-dlp
+brew "ffmpeg"    # media converter
 
 # git
 brew "gh"                                        # github cli
@@ -105,31 +109,31 @@ cask "macfuse" # Mount external filesystems
 # neovim
 brew "gnu-sed" # nvim-spectre
 
+# elixir_ml
+brew "openblas"
+brew "rebar3"
+
 ##
 ## Other
 ##
-brew "gcc"              # compiler
-brew "coreutils"        # misc utils
-brew "mono"             # unity vscode support
-cask "tempbox"          # Termporary Mail Wrapper
+brew "coreutils"        # GNU utils
 cask "eloston-chromium" # browser for testing
-cask "microsoft-teams"  # MS Teams
-cask "raycast"          # spotlight replacement
+
+cask "microsoft-teams"
+cask "raycast"
 cask "discord"
 cask "rectangle"
 cask "alt-tab"
 cask "obsidian"
 cask "spotify"
-cask "cron"
 cask "arc"
-cask "reaper"
 cask "hyperkey"
 cask "suspicious-package"
 cask "transmission"
 cask "transmission-remote-gui"
 cask "logseq"
-cask "electrum"
-cask "Zotero"
+cask "menuwhere"
+cask "grandperspective"
 
 ##
 ## Disabled
