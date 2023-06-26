@@ -134,6 +134,7 @@ cask "transmission-remote-gui"
 cask "logseq"
 cask "menuwhere"
 cask "grandperspective"
+brew "scc" # count lines of code
 
 ##
 ## Disabled
