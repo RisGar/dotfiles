@@ -43,7 +43,10 @@ set -gx XDG_DATA_HOME "$HOME/.local/share"
 set -gx XDG_STATE_HOME "$HOME/.local/state"
 set -gx XDG_CACHE_HOME "$HOME/.cache"
 
-set -gx fish_user_paths /opt/homebrew/opt/llvm/bin $(/opt/homebrew/bin/brew --prefix python)/libexec/bin "$XDG_DATA_HOME/go/bin" /Users/rishab/.local/share/asdf/shims /opt/homebrew/opt/asdf/libexec/bin /opt/homebrew/sbin /Users/rishab/.emacs.d/bin /Users/rishab/.local/bin /Users/rishab/.cargo/bin '/Applications/Visual Studio Code.app/Contents/Resources/app/bin' /opt/homebrew/bin /opt/homebrew/opt/fzf/bin
+set HOMEBREW_OPT /opt/homebrew/opt
+
+set -gx fish_user_paths "$HOME/.cargo/bin" "$HOMEBREW_OPT/llvm/bin" "$HOMEBREW_OPT/fzf/bin" $(/opt/homebrew/bin/brew --prefix python)/libexec/bin "$XDG_DATA_HOME/go/bin" /Users/rishab/.local/share/asdf/shims "$HOMEBREW_OPT/asdf/libexec/bin" "$HOME/.local/bin" "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" /opt/homebrew/bin /opt/homebrew/sbin
+
 
 starship init fish | source
 set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
@@ -61,8 +64,8 @@ set -gx VISUAL nvim
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -gx PAGER "less -r"
 set -gx BAT_THEME "OneHalfDark"
-set -gx CC "/opt/homebrew/opt/llvm/bin/clang"
-set -gx CXX "/opt/homebrew/opt/llvm/bin/clang++"
+set -gx CC "$HOMEBREW_OPT/llvm/bin/clang"
+set -gx CXX "$HOMEBREW_OPT/llvm/bin/clang++"
 
 set -gx HOMEBREW_BUNDLE_MAS_SKIP
 
