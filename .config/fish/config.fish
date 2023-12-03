@@ -3,10 +3,14 @@ set -gx XDG_DATA_HOME "$HOME/.local/share"
 set -gx XDG_STATE_HOME "$HOME/.local/state"
 set -gx XDG_CACHE_HOME "$HOME/.cache"
 
-set HOMEBREW_OPT /opt/homebrew/opt
+set -gx HOMEBREW_PREFIX /opt/homebrew
+set -gx HOMEBREW_OPT $HOMEBREW_PREFIX/opt
 
-set -gx fish_user_paths "$HOME/.cargo/bin" "$HOMEBREW_OPT/llvm/bin" "$HOMEBREW_OPT/fzf/bin" $(/opt/homebrew/bin/brew --prefix python)/libexec/bin "$XDG_DATA_HOME/go/bin" /Users/rishab/.local/share/asdf/shims "$HOMEBREW_OPT/asdf/libexec/bin" "$HOME/.local/bin" "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" /opt/homebrew/bin /opt/homebrew/sbin
+set -gx CARGO_HOME "$XDG_DATA_HOME/cargo"
 
+set -gx fish_user_paths "$CARGO_HOME/bin" "$HOMEBREW_OPT/llvm/bin" "$HOMEBREW_OPT/fzf/bin" $(/opt/homebrew/bin/brew --prefix python)/libexec/bin "$XDG_DATA_HOME/go/bin" /Users/rishab/.local/share/asdf/shims "$HOMEBREW_OPT/asdf/libexec/bin" "$HOME/.local/bin" "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" /opt/homebrew/bin /opt/homebrew/sbin
+
+set -gx MANPATH "$(manpath):$XDG_DATA_HOME/man"
 
 starship init fish | source
 set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
@@ -41,11 +45,12 @@ set -gx CABAL_DIR "$XDG_DATA_HOME/cabal"
 set -gx ASDF_DATA_DIR "$XDG_DATA_HOME/asdf"
 set -gx KAGGLE_CONFIG_DIR "$XDG_CONFIG_HOME/kaggle"
 set -gx GNUPGHOME "$XDG_DATA_HOME/gnupg"
+set -gx RUSTUP_HOME "$XDG_DATA_HOME/rustup"
 
-alias ls='exa -aF1 --color=always --group-directories-first --icons'
-alias la='exa -aF --color=always --group-directories-first --icons' # all files and dirs
-alias ll='exa -alF --color=always --group-directories-first --icons' # long format
-alias lt='exa -aTF --color=always --group-directories-first --icons' # tree listing
+alias ls='eza -aF1 --color=always --group-directories-first --icons'
+alias la='eza -aF --color=always --group-directories-first --icons' # all files and dirs
+alias ll='eza -alF --color=always --group-directories-first --icons' # long format
+alias lt='eza -aTF --color=always --group-directories-first --icons' # tree listing
 
 alias cp="cp -i"
 alias mv='mv -i'
