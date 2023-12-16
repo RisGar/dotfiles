@@ -48,7 +48,9 @@ set -gx HOMEBREW_OPT $HOMEBREW_PREFIX/opt
 
 set -gx CARGO_HOME "$XDG_DATA_HOME/cargo"
 
-set -gx fish_user_paths "$CARGO_HOME/bin" "$HOMEBREW_OPT/llvm/bin" "$HOMEBREW_OPT/fzf/bin" $(/opt/homebrew/bin/brew --prefix python)/libexec/bin "$XDG_DATA_HOME/go/bin" /Users/rishab/.local/share/asdf/shims "$HOMEBREW_OPT/asdf/libexec/bin" "$HOME/.local/bin" "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" /opt/homebrew/bin /opt/homebrew/sbin
+set -gx fish_user_paths "$CARGO_HOME/bin" "$HOMEBREW_OPT/llvm/bin" "$HOMEBREW_OPT/fzf/bin" $(/opt/homebrew/bin/brew --prefix python)/libexec/bin \
+"$XDG_DATA_HOME/go/bin" "$HOME/.local/bin" \
+"/Applications/Visual Studio Code.app/Contents/Resources/app/bin" "$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin"
 
 set -gx MANPATH "$(manpath):$XDG_DATA_HOME/man"
 
@@ -59,7 +61,7 @@ zoxide init fish | source
 
 source /opt/homebrew/opt/asdf/libexec/asdf.fish
 
-source "$XDG_DATA_HOME/opam/opam-init/init.fish" > /dev/null 2> /dev/null; or true
+source /Users/rishab/.local/share/opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
 
 eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 
