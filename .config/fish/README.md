@@ -15,7 +15,7 @@ My configuration for the fish shell on macOS.
 - [fish-shell/fish-shell](https://github.com/fish-shell/fish-shell)
 - [starship/starship](https://github.com/starship/starship): custom prompt ([see my config](../starship/README.md))
 - [neovim/neovim](https://github.com/neovim/neovim): Default editor ([see my config](../nvim/README.md))
-- [ogham/exa](https://github.com/ogham/exa): `ls` replacement
+- [eza-community/eza](https://github.com/eza-community/eza): `ls` replacement
 - [ajeetdsouza/zoxide](https://github.com/ajeetdsouza/zoxide): `cd` replacement
 - [sharkdp/bat](https://github.com/sharkdp/bat): `cat` replacement
 - [RisGar/crtangle](https://github.com/RisGar/crtangle): tangles this (and other) Markdown file(s) to their respective config files.
@@ -35,6 +35,8 @@ Excluded from this list are paths or hooks which do not directly modify the beha
 
 ## Config
 
+Uses the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html) to organise dotfiles.
+
 ### Variables and Hooks
 
 ```fish
@@ -50,9 +52,8 @@ set -gx CARGO_HOME "$XDG_DATA_HOME/cargo"
 
 set -gx fish_user_paths "$CARGO_HOME/bin" "$HOMEBREW_OPT/llvm/bin" "$HOMEBREW_OPT/fzf/bin" $(/opt/homebrew/bin/brew --prefix python)/libexec/bin \
 "$XDG_DATA_HOME/go/bin" "$HOME/.local/bin" \
-"/Applications/Visual Studio Code.app/Contents/Resources/app/bin" "$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin"
-
-set -gx MANPATH "$(manpath):$XDG_DATA_HOME/man"
+"/Applications/Visual Studio Code.app/Contents/Resources/app/bin" "$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin" \
+"$XDG_DATA_HOME/cabal/bin"
 
 starship init fish | source
 set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
@@ -84,6 +85,7 @@ set -gx LESSHISTFILE "$XDG_CACHE_HOME/less/history"
 set -gx GOPATH "$XDG_DATA_HOME/go"
 set -gx CABAL_CONFIG "$XDG_CONFIG_HOME/cabal/config"
 set -gx CABAL_DIR "$XDG_DATA_HOME/cabal"
+set -gx GHCUP_USE_XDG_DIRS true
 set -gx ASDF_DATA_DIR "$XDG_DATA_HOME/asdf"
 set -gx KAGGLE_CONFIG_DIR "$XDG_CONFIG_HOME/kaggle"
 set -gx GNUPGHOME "$XDG_DATA_HOME/gnupg"
@@ -113,10 +115,6 @@ end
 
 alias yadmui="yadm enter lazygit"
 
-function reload
-  crtangle ~/.config/fish/README.md
-  source ~/.config/fish/config.fish
-end
 
 alias trash='trash -F'
 
@@ -131,6 +129,15 @@ alias g++="g++-13"
 ```
 
 ### Extensions & Software
+
+### Config tangling
+
+```fish
+function reload
+  crtangle ~/.config/fish/README.md
+  source ~/.config/fish/config.fish
+end
+```
 
 #### fzf
 

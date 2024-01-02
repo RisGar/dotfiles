@@ -10,9 +10,8 @@ set -gx CARGO_HOME "$XDG_DATA_HOME/cargo"
 
 set -gx fish_user_paths "$CARGO_HOME/bin" "$HOMEBREW_OPT/llvm/bin" "$HOMEBREW_OPT/fzf/bin" $(/opt/homebrew/bin/brew --prefix python)/libexec/bin \
 "$XDG_DATA_HOME/go/bin" "$HOME/.local/bin" \
-"/Applications/Visual Studio Code.app/Contents/Resources/app/bin" "$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin"
-
-set -gx MANPATH "$(manpath):$XDG_DATA_HOME/man"
+"/Applications/Visual Studio Code.app/Contents/Resources/app/bin" "$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin" \
+"$XDG_DATA_HOME/cabal/bin"
 
 starship init fish | source
 set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
@@ -44,6 +43,7 @@ set -gx LESSHISTFILE "$XDG_CACHE_HOME/less/history"
 set -gx GOPATH "$XDG_DATA_HOME/go"
 set -gx CABAL_CONFIG "$XDG_CONFIG_HOME/cabal/config"
 set -gx CABAL_DIR "$XDG_DATA_HOME/cabal"
+set -gx GHCUP_USE_XDG_DIRS true
 set -gx ASDF_DATA_DIR "$XDG_DATA_HOME/asdf"
 set -gx KAGGLE_CONFIG_DIR "$XDG_CONFIG_HOME/kaggle"
 set -gx GNUPGHOME "$XDG_DATA_HOME/gnupg"
@@ -67,10 +67,6 @@ end
 
 alias yadmui="yadm enter lazygit"
 
-function reload
-  crtangle ~/.config/fish/README.md
-  source ~/.config/fish/config.fish
-end
 
 alias trash='trash -F'
 
@@ -82,6 +78,11 @@ alias vim="nvim"
 
 alias gcc="gcc-13"
 alias g++="g++-13"
+
+function reload
+  crtangle ~/.config/fish/README.md
+  source ~/.config/fish/config.fish
+end
 
 set -gx FZF_DEFAULT_OPTS '--cycle --layout=reverse'
 
