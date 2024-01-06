@@ -13,8 +13,6 @@ set -gx fish_user_paths "$CARGO_HOME/bin" "$HOMEBREW_OPT/llvm/bin" "$HOMEBREW_OP
 "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" "$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin" \
 "$XDG_DATA_HOME/cabal/bin"
 
-starship init fish | source
-set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
 
 zoxide init fish | source
 
@@ -106,6 +104,13 @@ end
 
 set -gx GPG_TTY (tty)
 gpgconf --launch gpg-agent
+
+function starship_transient_rprompt_func
+  starship module time
+end
+starship init fish | source
+set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
+enable_transience
 
 function fish_user_key_bindings
   fish_vi_key_bindings insert
