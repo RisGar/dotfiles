@@ -6,35 +6,34 @@ command_timeout = 1000
 
 # Change the default prompt format
 format = """\
-[╭╴](248) $all\
+[](248) $all\
 $fill\
 $time\
 $line_break\
-[╰─](248)$character"""
+$character"""
 
 [time]
 disabled = false
-format =	"[$time]($style)"
+format = "[$time]($style)"
 
 # transparent fill
 [fill]
 symbol = " "
 
-# Change the default prompt characters
 [character]
-success_symbol = "[](248)"
-error_symbol = "[](248)"
+success_symbol = "[󰘧](bold green)"
+error_symbol = "[󰘧](bold red)"
 
 # Shows the username
 [username]
 style_user = "white bold"
 style_root = "black bold"
 format = "[$user]($style) "
-disabled = false # disable in powershell
+disabled = false            # disable in powershell
 show_always = false
 
 [directory]
-home_symbol = " ~"
+home_symbol = "󰋜 ~"
 read_only_style = "197"
 read_only = "  "
 format = "at [$path]($style)[$read_only]($read_only_style) "
@@ -62,6 +61,9 @@ symbol = " "
 [conda]
 symbol = " "
 
+[crystal]
+symbol = " "
+
 [dart]
 symbol = " "
 
@@ -69,10 +71,16 @@ symbol = " "
 symbol = " "
 
 [elixir]
-symbol = " "
+symbol = " "
 
 [elm]
 symbol = " "
+
+[fennel]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
 
 [golang]
 symbol = " "
@@ -84,10 +92,13 @@ symbol = " "
 symbol = " "
 
 [haxe]
-symbol = "⌘ "
+symbol = " "
 
 [hg_branch]
 symbol = " "
+
+[hostname]
+ssh_symbol = " "
 
 [java]
 symbol = " "
@@ -95,30 +106,37 @@ symbol = " "
 [julia]
 symbol = " "
 
+[kotlin]
+symbol = " "
+
 [lua]
 symbol = " "
 
 [memory_usage]
-symbol = " "
+symbol = "󰍛 "
 
 [meson]
-symbol = "喝 "
+symbol = "󰔷 "
 
 [nim]
-symbol = " "
+symbol = "󰆥 "
 
 [nix_shell]
 symbol = " "
 
 [nodejs]
-symbol = ""
-format = "via [$symbol$version](bold green) "
+symbol = " "
+
+[ocaml]
+symbol = " "
 
 [os.symbols]
+Alpaquita = " "
 Alpine = " "
 Amazon = " "
 Android = " "
 Arch = " "
+Artix = " "
 CentOS = " "
 Debian = " "
 DragonFly = " "
@@ -126,11 +144,12 @@ Emscripten = " "
 EndeavourOS = " "
 Fedora = " "
 FreeBSD = " "
-Garuda = "﯑ "
+Garuda = "󰛓 "
 Gentoo = " "
-HardenedBSD = "ﲊ "
-Illumos = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
 Linux = " "
+Mabox = " "
 Macos = " "
 Manjaro = " "
 Mariner = " "
@@ -138,28 +157,37 @@ MidnightBSD = " "
 Mint = " "
 NetBSD = " "
 NixOS = " "
-OpenBSD = " "
+OpenBSD = "󰈺 "
 openSUSE = " "
-OracleLinux = " "
-Pop = " "
+OracleLinux = "󰌷 "
+Pop = " "
 Raspbian = " "
 Redhat = " "
 RedHatEnterprise = " "
-Redox = " "
-Solus = "ﴱ "
+Redox = "󰀘 "
+Solus = "󰠳 "
 SUSE = " "
 Ubuntu = " "
 Unknown = " "
-Windows = " "
+Windows = "󰍲 "
 
 [package]
-symbol = " "
+symbol = "󰏗 "
+
+[perl]
+symbol = " "
+
+[php]
+symbol = " "
+
+[pijul_channel]
+symbol = " "
 
 [python]
 symbol = " "
 
 [rlang]
-symbol = "ﳒ "
+symbol = "󰟔 "
 
 [ruby]
 symbol = " "
@@ -170,6 +198,8 @@ symbol = " "
 [scala]
 symbol = " "
 
-[spack]
-symbol = "🅢 "
+[swift]
+symbol = " "
 
+[zig]
+symbol = " "

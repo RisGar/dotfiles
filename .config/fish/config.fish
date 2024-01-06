@@ -105,11 +105,17 @@ end
 set -gx GPG_TTY (tty)
 gpgconf --launch gpg-agent
 
+set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
+
+function starship_transient_prompt_func
+  starship module character
+end
+
 function starship_transient_rprompt_func
   starship module time
 end
+
 starship init fish | source
-set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
 enable_transience
 
 function fish_user_key_bindings
