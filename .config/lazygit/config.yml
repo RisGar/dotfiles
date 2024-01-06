@@ -48,7 +48,7 @@ gui:
   commandLogSize: 8
   splitDiff: "auto" # one of 'auto' | 'always'
   skipRewordInEditorWarning: false # for skipping the confirmation before launching the reword editor
-  border: "single" # one of 'single' | 'double' | 'rounded' | 'hidden'
+  border: "rounded" # one of 'single' | 'double' | 'rounded' | 'hidden'
   animateExplosion: true # shows an explosion animation when nuking the working tree
 git:
   paging:
@@ -85,13 +85,8 @@ git:
   parseEmoji: false
   diffContextSize: 3 # how many lines of context are shown around a change in diffs
 os:
-  copyToClipboardCmd: "" # See 'Custom Command for Copying to Clipboard' section
-  editPreset: "" # see 'Configuring File Editing' section
-  edit: ""
-  editAtLine: ""
-  editAtLineAndWait: ""
-  open: ""
-  openLink: ""
+  editPreset: "nvim" # see 'Configuring File Editing' section
+  open: "open {{filename}}"
 refresher:
   refreshInterval: 10 # File/submodule refresh interval in seconds. Auto-refresh can be disabled via option 'git.autoRefresh'.
   fetchInterval: 60 # Re-fetch interval in seconds. Auto-fetch can be disabled via option 'git.autoFetch'.
@@ -102,7 +97,7 @@ confirmOnQuit: false
 # determines whether hitting 'esc' will quit the application when there is nothing to cancel/close
 quitOnTopLevelReturn: false
 disableStartupPopups: false
-notARepository: "prompt" # one of: 'prompt' | 'create' | 'skip' | 'quit'
+notARepository: "quit" # one of: 'prompt' | 'create' | 'skip' | 'quit'
 promptToReturnFromSubprocess: true # display confirmation when subprocess terminates
 keybinding:
   universal:
