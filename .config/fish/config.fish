@@ -14,13 +14,6 @@ set -gx fish_user_paths "$CARGO_HOME/bin" "$HOMEBREW_OPT/llvm/bin" "$HOMEBREW_OP
 "$XDG_DATA_HOME/cabal/bin"
 
 
-zoxide init fish | source
-
-source /opt/homebrew/opt/asdf/libexec/asdf.fish
-
-source /Users/rishab/.local/share/opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
-
-eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 
 set -gx EDITOR nvim
 set -gx VISUAL nvim
@@ -46,6 +39,14 @@ set -gx ASDF_DATA_DIR "$XDG_DATA_HOME/asdf"
 set -gx KAGGLE_CONFIG_DIR "$XDG_CONFIG_HOME/kaggle"
 set -gx GNUPGHOME "$XDG_DATA_HOME/gnupg"
 set -gx RUSTUP_HOME "$XDG_DATA_HOME/rustup"
+
+zoxide init fish | source
+
+source /opt/homebrew/opt/asdf/libexec/asdf.fish
+
+source /Users/rishab/.local/share/opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
+
+eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 
 alias ls='eza -aF1 --color=always --group-directories-first --icons'
 alias la='eza -aF --color=always --group-directories-first --icons' # all files and dirs
