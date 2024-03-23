@@ -3,7 +3,8 @@
 	email = me@rishab-garg.me
 	signingkey = 561E69A2
 [core]
-	editor = nvim
+  editor = nvim
+  pager = delta
 	autocrlf = false
 [commit]
 	gpgSign = true

@@ -22,8 +22,6 @@ gui:
       - blue
     selectedLineBgColor:
       - blue # set to `default` to have no background colour
-    selectedRangeBgColor:
-      - blue
     cherryPickedCommitBgColor:
       - cyan
     cherryPickedCommitFgColor:
@@ -53,9 +51,9 @@ gui:
 git:
   paging:
     colorArg: always
-    useConfig: false
+    useConfig: true
   commit:
-    signOff: false
+    signOff: true
   merging:
     # only applicable to unix users
     manualCommit: false
@@ -83,10 +81,8 @@ git:
   overrideGpg: false # prevents lazygit from spawning a separate process when using GPG
   disableForcePushing: false
   parseEmoji: false
-  diffContextSize: 3 # how many lines of context are shown around a change in diffs
 os:
   editPreset: "nvim" # see 'Configuring File Editing' section
-  open: "open {{filename}}"
 refresher:
   refreshInterval: 10 # File/submodule refresh interval in seconds. Auto-refresh can be disabled via option 'git.autoRefresh'.
   fetchInterval: 60 # Re-fetch interval in seconds. Auto-fetch can be disabled via option 'git.autoFetch'.
@@ -206,7 +202,6 @@ keybinding:
     pickCommit: "p" # pick commit (when mid-rebase)
     revertCommit: "t"
     cherryPickCopy: "c"
-    cherryPickCopyRange: "C"
     pasteCommits: "v"
     tagCommit: "T"
     checkoutCommit: "<space>"
@@ -220,8 +215,6 @@ keybinding:
   commitFiles:
     checkoutCommitFile: "c"
   main:
-    toggleDragSelect: "v"
-    toggleDragSelect-alt: "V"
     toggleSelectHunk: "a"
     pickBothHunks: "b"
   submodules:

@@ -129,7 +129,21 @@ alias g++="g++-13"
 
 ### Extensions & Software
 
-### Config tangling
+#### aichat
+
+```fish
+function _aichat_fish
+    set -l _old (commandline)
+    if test -n $_old
+        echo -n "⌛"
+        commandline -f repaint
+        commandline (aichat -e $_old)
+    end
+end
+bind \ce _aichat_fish
+```
+
+#### Config tangling
 
 ```fish
 function reload

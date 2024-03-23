@@ -78,6 +78,16 @@ alias vim="nvim"
 alias gcc="gcc-13"
 alias g++="g++-13"
 
+function _aichat_fish
+    set -l _old (commandline)
+    if test -n $_old
+        echo -n "⌛"
+        commandline -f repaint
+        commandline (aichat -e $_old)
+    end
+end
+bind \ce _aichat_fish
+
 function reload
   crtangle ~/.config/fish/README.md
   source ~/.config/fish/config.fish
