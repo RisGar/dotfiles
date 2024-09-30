@@ -45,20 +45,23 @@ set -gx XDG_DATA_HOME "$HOME/.local/share"
 set -gx XDG_STATE_HOME "$HOME/.local/state"
 set -gx XDG_CACHE_HOME "$HOME/.cache"
 
-set -gx HOMEBREW_PREFIX /opt/homebrew
+set -gx HOMEBREW_PREFIX "/opt/homebrew"
 set -gx HOMEBREW_OPT $HOMEBREW_PREFIX/opt
 
 set -gx CARGO_HOME "$XDG_DATA_HOME/cargo"
+set -gx PNPM_HOME "$XDG_DATA_HOME/pnpm"
 
 set -gx fish_user_paths "$CARGO_HOME/bin" "$HOMEBREW_OPT/llvm/bin" "$HOMEBREW_OPT/fzf/bin" $(/opt/homebrew/bin/brew --prefix python)/libexec/bin \
 "$XDG_DATA_HOME/go/bin" "$HOME/.local/bin" \
 "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" "$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin" \
-"$XDG_DATA_HOME/cabal/bin" "$XDG_DATA_HOME/pnpm" "$XDG_DATA_HOME/npm/bin"
+"$XDG_DATA_HOME/cabal/bin" "$PNPM_HOME" "$XDG_DATA_HOME/npm/bin" "$XDG_DATA_HOME/gem/bin" "$HOME/.iterm2" "$XDG_DATA_HOME/fnm" \
+"/Applications/WebStorm.app/Contents/MacOS"
 
 set -gx EDITOR nvim
 set -gx VISUAL nvim
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -gx PAGER "less -r"
+set -gx GIT_PAGER "delta"
 set -gx BAT_THEME "OneHalfDark"
 set -gx CC "$HOMEBREW_OPT/llvm/bin/clang"
 set -gx CXX "$HOMEBREW_OPT/llvm/bin/clang++"
@@ -68,7 +71,7 @@ set -gx HOMEBREW_BUNDLE_MAS_SKIP
 set -gx GEM_HOME "$XDG_DATA_HOME/gem"
 set -gx OPAMROOT "$XDG_DATA_HOME/opam"
 set -gx NPM_CONFIG_USERCONFIG "$XDG_CONFIG_HOME/npm/npmrc"
-set -gx GVIMINIT 'let $MYGVIMRC = !has("nvim") ? "$XDG_CONFIG_HOME/vim/gvimrc" : "$XDG_CONFIG_HOME/nvim/init.gvim" | so $MYGVIMRC'
+set -gx GVIMINIT "$XDG_CONFIG_HOME/nvim/init.gvim"
 set -gx NODE_REPL_HISTORY "$XDG_DATA_HOME/node_repl_history"
 set -gx LESSHISTFILE "$XDG_CACHE_HOME/less/history"
 set -gx GOPATH "$XDG_DATA_HOME/go"
@@ -79,7 +82,9 @@ set -gx ASDF_DATA_DIR "$XDG_DATA_HOME/asdf"
 set -gx KAGGLE_CONFIG_DIR "$XDG_CONFIG_HOME/kaggle"
 set -gx GNUPGHOME "$XDG_DATA_HOME/gnupg"
 set -gx RUSTUP_HOME "$XDG_DATA_HOME/rustup"
-# set -gx PNPM_HOME "$XDG_DATA_HOME/pnpm"
+set -gx WAKATIME_HOME "$XDG_CONFIG_HOME/wakatime"
+set -gx TLDR_CACHE_DIR "$XDG_CACHE_HOME/tldr"
+set -gx HAXE_STD_PATH "$HOMEBREW_PREFIX/lib/haxe/std"
 
 zoxide init fish | source
 
@@ -89,6 +94,7 @@ source /Users/rishab/.local/share/opam/opam-init/init.fish > /dev/null 2> /dev/n
 
 eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 
+fnm env | source
 ```
 
 ### Aliases
@@ -96,7 +102,7 @@ eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 Aliases and functions to shorten or modify often-used commands.
 
 ```fish
-alias ls='eza -aF1 --color=always --group-directories-first --icons'
+alias ls='eza -a1F --color=always --group-directories-first --icons'
 alias la='eza -aF --color=always --group-directories-first --icons' # all files and dirs
 alias ll='eza -alF --color=always --group-directories-first --icons' # long format
 alias lt='eza -aTF --color=always --group-directories-first --icons' # tree listing
@@ -114,7 +120,6 @@ end
 
 alias yadmui="yadm enter lazygit"
 
-
 alias trash='trash -F'
 
 alias brewfile='brew bundle --global -fv'
@@ -123,8 +128,6 @@ alias spotify-dlp="yt-dlp --config-locations ~/.config/yt-dlp/config-spotify"
 
 alias vim="nvim"
 
-alias gcc="gcc-13"
-alias g++="g++-13"
 ```
 
 ### Extensions & Software
@@ -165,7 +168,7 @@ fzf_configure_bindings --directory=\cf
 #### lf file manager
 
 ```fish
-function lf -d "Launch lf file manager with exit dir cd support"
+function lf -d "Launch .lf file manager with exit dir cd support"
   set tmp (mktemp)
   command lf -last-dir-path=$tmp $argv
 
@@ -180,14 +183,14 @@ function lf -d "Launch lf file manager with exit dir cd support"
 end
 ```
 
-### gnupg
+#### gnupg
 
 ```fish
 set -gx GPG_TTY (tty)
 gpgconf --launch gpg-agent
 ```
 
-### starship
+#### starship
 
 ```fish
 set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml

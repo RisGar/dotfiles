@@ -8,7 +8,6 @@ set drawbox
 set hidden true
 set icons
 set ignorecase true
-set sixel true
 
 set previewer ~/Documents/Programming/crpreview/bin/crpreview
 map i $ ~/Documents/Programming/crpreview/bin/crpreview $f | less -R
@@ -69,6 +68,19 @@ cmd z %{{
 cmd zi ${{
 	result="$(zoxide query -i)"
 	lf -remote "send $id cd $result"
+}}
+
+# zoxide & starship
+cmd on-cd &{{
+    zoxide add "$PWD"
+    export STARSHIP_SHELL=
+    fmt="$(starship prompt)"
+    lf -remote "send $id set promptfmt \"$fmt\""
+}}
+
+# eza
+cmd on-select &{{
+    lf -remote "send $id set statfmt \"$(eza -ld --color=always "$f")\""
 }}
 
 # ripgrep
