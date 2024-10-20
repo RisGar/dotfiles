@@ -60,7 +60,8 @@ set -gx fish_user_paths "$CARGO_HOME/bin" "$HOMEBREW_OPT/llvm/bin" "$HOMEBREW_OP
 set -gx EDITOR nvim
 set -gx VISUAL nvim
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
-set -gx PAGER "less -r"
+# set -gx PAGER "less -r"
+set -gx PAGER "ov"
 set -gx GIT_PAGER "delta"
 set -gx BAT_THEME "OneHalfDark"
 set -gx CC "$HOMEBREW_OPT/llvm/bin/clang"
