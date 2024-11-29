@@ -55,7 +55,7 @@ set -gx fish_user_paths "$CARGO_HOME/bin" "$HOMEBREW_OPT/llvm/bin" "$HOMEBREW_OP
 "$XDG_DATA_HOME/go/bin" "$HOME/.local/bin" \
 "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" "$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin" \
 "$XDG_DATA_HOME/cabal/bin" "$PNPM_HOME" "$XDG_DATA_HOME/npm/bin" "$XDG_DATA_HOME/gem/bin" "$HOME/.iterm2" "$XDG_DATA_HOME/fnm" \
-"/Applications/WebStorm.app/Contents/MacOS"
+"$HOME/Library/Application Support/Coursier/bin" "$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 
 set -gx EDITOR nvim
 set -gx VISUAL nvim

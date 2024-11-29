@@ -1,7 +1,7 @@
 [user]
-	name = Rishab Garg
-	email = me@rishab-garg.me
-	signingkey = 561E69A2
+  name = Rishab Garg
+  email = me@rishab-garg.me
+	signingkey = 39CE1874561E69A2
 [core]
   editor = nvim
   autocrlf = false
@@ -17,9 +17,9 @@
   colorMoved = default
 
 [commit]
-	gpgSign = true
+	gpgsign = true
 [gpg]
-	program = /opt/homebrew/bin/gpg
+  program = /opt/homebrew/bin/gpg
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -32,9 +32,10 @@
 [tag]
 	gpgSign = true
 [credential]
-	helper = 
 	helper = /usr/local/share/gcm-core/git-credential-manager
 [credential "https://dev.azure.com"]
 	useHttpPath = true
 [credential "https://artemis.cit.tum.de"]
+	provider = generic
+[credential "https://artemis.tum.de"]
 	provider = generic
