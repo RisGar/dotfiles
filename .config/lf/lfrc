@@ -10,8 +10,8 @@ set icons
 set ignorecase true
 set sixel true
 
-set previewer ~/Documents/Programming/crpreview/bin/crpreview
-map i $ ~/Documents/Programming/crpreview/bin/crpreview $f | ov
+set previewer mlpreview
+map i $ mlpreview $f | ov
 
 # layout
 cmd recol ${{

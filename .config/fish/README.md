@@ -19,7 +19,6 @@ My configuration for the fish shell on macOS.
 - [ajeetdsouza/zoxide](https://github.com/ajeetdsouza/zoxide): `cd` replacement
 - [sharkdp/bat](https://github.com/sharkdp/bat): `cat` replacement
 - [RisGar/crtangle](https://github.com/RisGar/crtangle): tangles this (and other) Markdown file(s) to their respective config files.
-- [brew gcc](https://formulae.brew.sh/formula/gcc): Replaces default C(++) compiler to support newer versions of C++
 - [Any Nerd Font](https://www.nerdfonts.com/): Required to display icons correctly
 - [gokcehan/lf](https://github.com/gokcehan/lf): terminal file manager ([see my config](../lf/README.md))
 - [TheLocehiliosan/yadm](https://github.com/TheLocehiliosan/yadm): dotfiles manager
@@ -40,6 +39,7 @@ Uses the [XDG Base Directory Specification](https://specifications.freedesktop.o
 ### Variables and Hooks
 
 ```fish
+# xdg
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx XDG_DATA_HOME "$HOME/.local/share"
 set -gx XDG_STATE_HOME "$HOME/.local/state"
@@ -55,11 +55,11 @@ set -gx fish_user_paths "$CARGO_HOME/bin" "$HOMEBREW_OPT/llvm/bin" "$HOMEBREW_OP
 "$XDG_DATA_HOME/go/bin" "$HOME/.local/bin" \
 "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" "$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin" \
 "$XDG_DATA_HOME/cabal/bin" "$PNPM_HOME" "$XDG_DATA_HOME/npm/bin" "$XDG_DATA_HOME/gem/bin" "$HOME/.iterm2" "$XDG_DATA_HOME/fnm" \
-"$HOME/Library/Application Support/Coursier/bin" "$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+"$HOME/Library/Application Support/Coursier/bin" "$HOME/Library/Application Support/JetBrains/Toolbox/scripts" "$HOMEBREW_OPT/ruby/bin" "$HOME/.orbstack/bin"
 
 set -gx EDITOR nvim
 set -gx VISUAL nvim
-set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+set -gx MANPAGER "nvim +Man!"
 # set -gx PAGER "less -r"
 set -gx PAGER "ov"
 set -gx GIT_PAGER "delta"
@@ -67,7 +67,9 @@ set -gx BAT_THEME "OneHalfDark"
 set -gx CC "$HOMEBREW_OPT/llvm/bin/clang"
 set -gx CXX "$HOMEBREW_OPT/llvm/bin/clang++"
 
+set -gx HOMEBREW_BUNDLE_DUMP_DESCRIBE
 set -gx HOMEBREW_BUNDLE_MAS_SKIP
+set -gx HOMEBREW_BUNDLE_DUMP_NO_VSCODE
 
 set -gx GEM_HOME "$XDG_DATA_HOME/gem"
 set -gx OPAMROOT "$XDG_DATA_HOME/opam"
@@ -85,6 +87,7 @@ set -gx GNUPGHOME "$XDG_DATA_HOME/gnupg"
 set -gx RUSTUP_HOME "$XDG_DATA_HOME/rustup"
 set -gx WAKATIME_HOME "$XDG_CONFIG_HOME/wakatime"
 set -gx TLDR_CACHE_DIR "$XDG_CACHE_HOME/tldr"
+
 set -gx HAXE_STD_PATH "$HOMEBREW_PREFIX/lib/haxe/std"
 
 zoxide init fish | source
@@ -96,6 +99,8 @@ source /Users/rishab/.local/share/opam/opam-init/init.fish > /dev/null 2> /dev/n
 eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 
 fnm env | source
+
+set -gx LC_ALL "en_GB.UTF-8"
 ```
 
 ### Aliases
@@ -103,19 +108,19 @@ fnm env | source
 Aliases and functions to shorten or modify often-used commands.
 
 ```fish
-alias ls='eza -a1F --color=always --group-directories-first --icons'
-alias la='eza -aF --color=always --group-directories-first --icons' # all files and dirs
-alias ll='eza -alF --color=always --group-directories-first --icons' # long format
-alias lt='eza -aTF --color=always --group-directories-first --icons' # tree listing
+alias ls 'eza -a1F --color=always --group-directories-first --icons'
+alias la 'eza -aF --color=always --group-directories-first --icons' # all files and dirs
+alias ll 'eza -alF --color=always --group-directories-first --icons' # long format
+alias lt 'eza -aTF --color=always --group-directories-first --icons' # tree listing
 
-alias cp="cp -i"
-alias mv='mv -i'
-alias rm='rm -i'
+alias cp "cp -i"
+alias mv 'mv -i'
+alias rm 'rm -i'
 
-alias cd="z"
-alias ..='z ..'
+alias cd "z"
+alias .. 'z ..'
 
-function fd
+function fd # bat
   command fd $argv -X bat
 end
 
@@ -123,12 +128,17 @@ alias yadmui="yadm enter lazygit"
 
 alias trash='trash -F'
 
-alias brewfile='brew bundle --global -fv'
+# alias brewfile='brew bundle --global -fv'
 
 alias spotify-dlp="yt-dlp --config-locations ~/.config/yt-dlp/config-spotify"
 
 alias vim="nvim"
 
+abbr --add ga git add
+abbr --add gc --set-cursor "git commit -m \"%\""
+abbr --add gp git pull
+abbr --add gP git push
+abbr --add gC git clone
 ```
 
 ### Extensions & Software
@@ -153,6 +163,9 @@ bind \ce _aichat_fish
 function reload
   crtangle ~/.config/fish/README.md
   source ~/.config/fish/config.fish
+
+  crtangle ~/.config/ghostty/README.md
+  ghostty +validate-config
 end
 ```
 
@@ -191,22 +204,6 @@ set -gx GPG_TTY (tty)
 gpgconf --launch gpg-agent
 ```
 
-#### starship
-
-```fish
-set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
-
-function starship_transient_prompt_func
-  starship module character
-end
-
-function starship_transient_rprompt_func
-  starship module time
-end
-
-starship init fish | source
-enable_transience
-```
 
 ### Keybindings
 
@@ -217,20 +214,25 @@ function fish_user_key_bindings
   fish_vi_key_bindings insert
 end
 
-set fish_cursor_default block
-set fish_cursor_insert line
-set fish_cursor_replace_one underscore
-set fish_cursor_visual block
+# ghostty
+function fish_vi_cursor --on-variable fish_bind_mode
+    switch $fish_bind_mode
+        case default
+            echo -en "\x1b[0 q" # block cursor
+        case insert
+            echo -en "\x1b[5 q" # line cursor
+        case visual
+            echo -en "\x1b[3 q" # block cursor
+    end
+end
 
-bind -M visual -m default y "fish_clipboard_copy; commandline -f end-selection repaint-mode"
-bind p forward-char "commandline -i ( pbpaste; echo )[1]" # TODO
+# bind -M visual -m default y "fish_clipboard_copy; commandline -f end-selection repaint-mode"
+# bind p forward-char "commandline -i ( pbpaste; echo )[1]" # TODO
 ```
 
 ### Appearance
 
 ```fish
-set TERM xterm-256color
-
 function fish_greeting
   fastfetch
 end
@@ -244,4 +246,22 @@ if status is-interactive
 
   set_onedark $onedark_options
 end
+```
+
+
+#### Prompt
+
+```fish
+set -gx STARSHIP_CONFIG "$XDG_CONFIG_HOME/starship/starship.toml"
+
+function starship_transient_prompt_func
+  starship module character
+end
+
+function starship_transient_rprompt_func
+  starship module time
+end
+
+starship init fish | source
+enable_transience
 ```
