@@ -43,6 +43,8 @@ vim.opt.wrap = false
 
 vim.opt.termguicolors = true
 
+-- vim.opt.sidescroll = 0
+
 vim.opt.guicursor =
 	"n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
 
@@ -57,6 +59,7 @@ vim.keymap.set("n", "<Left>", "<Nop>")
 vim.keymap.set("n", "<Right>", "<Nop>")
 vim.keymap.set("n", "<Down>", "<Nop>")
 vim.keymap.set("n", "<Up>", "<Nop>")
+vim.keymap.set("n", "<ScrollWheelRight>", "<Nop>")
 -- vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "exit terminal mode" }) -- exit terminal mode
 
 -- [[ autocommands ]]
