@@ -60,6 +60,7 @@ vim.keymap.set("n", "<Right>", "<Nop>")
 vim.keymap.set("n", "<Down>", "<Nop>")
 vim.keymap.set("n", "<Up>", "<Nop>")
 vim.keymap.set("n", "<ScrollWheelRight>", "<Nop>")
+vim.keymap.set("n", "<leader>w", "<cmd>set wrap!<cr>", { desc = "linewrap" })
 -- vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "exit terminal mode" }) -- exit terminal mode
 
 -- [[ autocommands ]]

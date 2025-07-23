@@ -87,12 +87,11 @@ set -gx GNUPGHOME "$XDG_DATA_HOME/gnupg"
 set -gx RUSTUP_HOME "$XDG_DATA_HOME/rustup"
 set -gx WAKATIME_HOME "$XDG_CONFIG_HOME/wakatime"
 set -gx TLDR_CACHE_DIR "$XDG_CACHE_HOME/tldr"
-
 set -gx HAXE_STD_PATH "$HOMEBREW_PREFIX/lib/haxe/std"
 
-zoxide init fish | source
+set -gx SYSTEMC_HOME "$HOME/Documents/Binaries/systemc"
 
-source /opt/homebrew/opt/asdf/libexec/asdf.fish
+zoxide init fish | source
 
 source /Users/rishab/.local/share/opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
 
@@ -134,14 +133,32 @@ alias spotify-dlp="yt-dlp --config-locations ~/.config/yt-dlp/config-spotify"
 
 alias vim="nvim"
 
+alias iamb="iamb -C $XDG_CONFIG_HOME"
+
 abbr --add ga git add
 abbr --add gc --set-cursor "git commit -m \"%\""
 abbr --add gp git pull
 abbr --add gP git push
-abbr --add gC git clone
+# abbr --add gC git clone
+
+abbr --add lg lazygit
 ```
 
 ### Extensions & Software
+
+#### git clone & cd
+
+```fish
+function git_clone_and_cd
+    git clone $argv[1]
+    if test $status -eq 0
+        set repo (basename $argv[1] .git)
+        cd $repo
+    end
+end
+
+abbr --add gC git_clone_and_cd
+```
 
 #### aichat
 
@@ -197,6 +214,24 @@ function lf -d "Launch .lf file manager with exit dir cd support"
 end
 ```
 
+#### asdf version manager
+
+```fish
+# ASDF configuration code
+if test -z $ASDF_DATA_DIR
+    set _asdf_shims "$HOME/.asdf/shims"
+else
+    set _asdf_shims "$ASDF_DATA_DIR/shims"
+end
+
+# Do not use fish_add_path (added in Fish 3.2) because it
+# potentially changes the order of items in PATH
+if not contains $_asdf_shims $PATH
+    set -gx --prepend PATH $_asdf_shims
+end
+set --erase _asdf_shims
+```
+
 #### gnupg
 
 ```fish
@@ -214,17 +249,6 @@ function fish_user_key_bindings
   fish_vi_key_bindings insert
 end
 
-# ghostty
-function fish_vi_cursor --on-variable fish_bind_mode
-    switch $fish_bind_mode
-        case default
-            echo -en "\x1b[0 q" # block cursor
-        case insert
-            echo -en "\x1b[5 q" # line cursor
-        case visual
-            echo -en "\x1b[3 q" # block cursor
-    end
-end
 
 # bind -M visual -m default y "fish_clipboard_copy; commandline -f end-selection repaint-mode"
 # bind p forward-char "commandline -i ( pbpaste; echo )[1]" # TODO

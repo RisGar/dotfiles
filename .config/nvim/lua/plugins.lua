@@ -214,4 +214,5 @@ return {
 		"karb94/neoscroll.nvim",
 		config = true,
 	},
+	{ "wakatime/vim-wakatime", lazy = false },
 }

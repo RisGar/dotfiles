@@ -5,7 +5,7 @@
       "type": "os",
       "key": "   OS",
       "keyColor": "red",
-      "format": "{3} {10} {8}"
+      "format": "{10} {8}"
     },
     {
       "type": "host",
