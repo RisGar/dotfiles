@@ -16,3 +16,6 @@ export XDG_DATA_HOME="${HOME}"/.local/share
 export XDG_CACHE_HOME="${HOME}"/.cache
 
 export HISTFILE="${XDG_STATE_HOME}"/bash/history
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/rishab/.cache/lm-studio/bin"
