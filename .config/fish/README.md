@@ -4,7 +4,10 @@ tangle: /Users/rishab/.config/fish/config.fish
 
 # Fish config
 
-My configuration for the fish shell on macOS.
+- My configuration for the fish shell.
+
+- All configuration is done inside of `README.md` which is tangled to `config.fish`. The other directories like `conf.d` only contain files managed by fisher or homebrew.
+
 
 ## Sources
 
@@ -12,11 +15,12 @@ My configuration for the fish shell on macOS.
 
 ## Dependencies
 
+- Optional dependencies are listed under the respective categories
+
+### Required depedencies
+
 - [fish-shell/fish-shell](https://github.com/fish-shell/fish-shell)
-- [starship/starship](https://github.com/starship/starship): custom prompt ([see my config](../starship/README.md))
 - [neovim/neovim](https://github.com/neovim/neovim): Default editor ([see my config](../nvim/README.md))
-- [eza-community/eza](https://github.com/eza-community/eza): `ls` replacement
-- [ajeetdsouza/zoxide](https://github.com/ajeetdsouza/zoxide): `cd` replacement
 - [sharkdp/bat](https://github.com/sharkdp/bat): `cat` replacement
 - [RisGar/crtangle](https://github.com/RisGar/crtangle): tangles this (and other) Markdown file(s) to their respective config files.
 - [Any Nerd Font](https://www.nerdfonts.com/): Required to display icons correctly
@@ -30,32 +34,29 @@ My configuration for the fish shell on macOS.
 - [ali-rantakari/trash](https://github.com/ali-rantakari/trash): cli to move into `~/.Trash` with additional features
 - [yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp): `youtube-dl` fork with additional features
 
-Excluded from this list are paths or hooks which do not directly modify the behavior of the shell.
-
 ## Config
-
-Uses the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html) to organise dotfiles.
 
 ### Variables and Hooks
 
+- Uses the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html) to organise dotfiles.
+
 ```fish
-# xdg
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx XDG_DATA_HOME "$HOME/.local/share"
 set -gx XDG_STATE_HOME "$HOME/.local/state"
 set -gx XDG_CACHE_HOME "$HOME/.cache"
 
-set -gx HOMEBREW_PREFIX "/opt/homebrew"
+set -gx HOMEBREW_PREFIX $(/opt/homebrew/bin/brew --prefix)
 set -gx HOMEBREW_OPT $HOMEBREW_PREFIX/opt
 
 set -gx CARGO_HOME "$XDG_DATA_HOME/cargo"
 set -gx PNPM_HOME "$XDG_DATA_HOME/pnpm"
 
-set -gx fish_user_paths "$CARGO_HOME/bin" "$HOMEBREW_OPT/llvm/bin" "$HOMEBREW_OPT/fzf/bin" $(/opt/homebrew/bin/brew --prefix python)/libexec/bin \
+set -gx fish_user_paths "$CARGO_HOME/bin" "$HOMEBREW_PREFIX/opt/llvm/bin" "$HOMEBREW_PREFIX/opt/fzf/bin" $($HOMEBREW_PREFIX/bin/brew --prefix python)/libexec/bin \
 "$XDG_DATA_HOME/go/bin" "$HOME/.local/bin" \
 "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" "$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin" \
 "$XDG_DATA_HOME/cabal/bin" "$PNPM_HOME" "$XDG_DATA_HOME/npm/bin" "$XDG_DATA_HOME/gem/bin" "$HOME/.iterm2" "$XDG_DATA_HOME/fnm" \
-"$HOME/Library/Application Support/Coursier/bin" "$HOME/Library/Application Support/JetBrains/Toolbox/scripts" "$HOMEBREW_OPT/ruby/bin" "$HOME/.orbstack/bin"
+"$HOME/Library/Application Support/Coursier/bin" "$HOME/Library/Application Support/JetBrains/Toolbox/scripts" "$HOMEBREW_OPT/ruby/bin"
 
 set -gx EDITOR nvim
 set -gx VISUAL nvim
@@ -67,9 +68,7 @@ set -gx BAT_THEME "OneHalfDark"
 set -gx CC "$HOMEBREW_OPT/llvm/bin/clang"
 set -gx CXX "$HOMEBREW_OPT/llvm/bin/clang++"
 
-set -gx HOMEBREW_BUNDLE_DUMP_DESCRIBE
-set -gx HOMEBREW_BUNDLE_MAS_SKIP
-set -gx HOMEBREW_BUNDLE_DUMP_NO_VSCODE
+set -gx HOMEBREW_BAT true
 
 set -gx GEM_HOME "$XDG_DATA_HOME/gem"
 set -gx OPAMROOT "$XDG_DATA_HOME/opam"
@@ -88,7 +87,7 @@ set -gx RUSTUP_HOME "$XDG_DATA_HOME/rustup"
 set -gx WAKATIME_HOME "$XDG_CONFIG_HOME/wakatime"
 set -gx TLDR_CACHE_DIR "$XDG_CACHE_HOME/tldr"
 set -gx HAXE_STD_PATH "$HOMEBREW_PREFIX/lib/haxe/std"
-
+set -gx EZA_CONFIG_DIR "$XDG_CONFIG_HOME/eza"
 set -gx SYSTEMC_HOME "$HOME/Documents/Binaries/systemc"
 
 zoxide init fish | source
@@ -104,30 +103,20 @@ set -gx LC_ALL "en_GB.UTF-8"
 
 ### Aliases
 
-Aliases and functions to shorten or modify often-used commands.
+- Aliases and abbreviations to shorten or modify often-used commands.
 
 ```fish
-alias ls 'eza -a1F --color=always --group-directories-first --icons'
-alias la 'eza -aF --color=always --group-directories-first --icons' # all files and dirs
-alias ll 'eza -alF --color=always --group-directories-first --icons' # long format
-alias lt 'eza -aTF --color=always --group-directories-first --icons' # tree listing
 
 alias cp "cp -i"
 alias mv 'mv -i'
 alias rm 'rm -i'
 
-alias cd "z"
-alias .. 'z ..'
-
 function fd # bat
-  command fd $argv -X bat
+    command fd $argv -X bat
 end
 
-alias yadmui="yadm enter lazygit"
 
 alias trash='trash -F'
-
-# alias brewfile='brew bundle --global -fv'
 
 alias spotify-dlp="yt-dlp --config-locations ~/.config/yt-dlp/config-spotify"
 
@@ -135,20 +124,8 @@ alias vim="nvim"
 
 alias iamb="iamb -C $XDG_CONFIG_HOME"
 
-abbr --add ga git add
-abbr --add gc --set-cursor "git commit -m \"%\""
-abbr --add gp git pull
-abbr --add gP git push
-# abbr --add gC git clone
+abbr  --add yadmui "yadm enter lazygit"
 
-abbr --add lg lazygit
-```
-
-### Extensions & Software
-
-#### git clone & cd
-
-```fish
 function git_clone_and_cd
     git clone $argv[1]
     if test $status -eq 0
@@ -157,10 +134,41 @@ function git_clone_and_cd
     end
 end
 
-abbr --add gC git_clone_and_cd
+abbr --add gc git_clone_and_cd
+```
+
+### Extensions & Software
+
+- Contains optional dependencies
+
+#### zoxide
+
+- [ajeetdsouza/zoxide](https://github.com/ajeetdsouza/zoxide): `cd` replacement
+
+```fish
+if command -q zoxide
+    alias cd "z"
+    alias .. 'z ..'
+end
+```
+
+#### eza
+
+- [eza-community/eza](https://github.com/eza-community/eza): `ls` replacement
+
+```fish
+if command -q eza
+    alias ls 'eza -a1F --color=always --group-directories-first --icons'
+    alias la 'eza -aF --color=always --group-directories-first --icons' # all files and dirs
+    alias ll 'eza -alF --color=always --group-directories-first --icons' # long format
+    alias lt 'eza -aTF --color=always --group-directories-first --icons' # tree listing
+end
+
 ```
 
 #### aichat
+
+- [sigoden/aichat](https://github.com/sigoden/aichat)
 
 ```fish
 function _aichat_fish
@@ -178,11 +186,11 @@ bind \ce _aichat_fish
 
 ```fish
 function reload
-  crtangle ~/.config/fish/README.md
-  source ~/.config/fish/config.fish
+    gltangle ~/.config/fish/README.md
+    source ~/.config/fish/config.fish
 
-  crtangle ~/.config/ghostty/README.md
-  ghostty +validate-config
+    gltangle ~/.config/ghostty/README.md
+    ghostty +validate-config
 end
 ```
 
@@ -193,6 +201,7 @@ set -gx FZF_DEFAULT_OPTS '--cycle --layout=reverse'
 
 set fzf_preview_dir_cmd eza --all --color=always
 set fzf_fd_opts --hidden --exclude=.git
+
 fzf_configure_bindings --directory=\cf
 ```
 
@@ -256,24 +265,20 @@ end
 
 ### Appearance
 
+#### Theme
+
+- Uses [woheedev/onedark-fish](https://github.com/woheedev/onedark-fish), activate by executing `fish_config theme save "One Dark"`
+
 ```fish
 function fish_greeting
   fastfetch
-end
-
-if status is-interactive
-  set -l onedark_options -b
-
-  if set -q VIM # from (neo)vim
-    set onedark_options -256
-  end
-
-  set_onedark $onedark_options
 end
 ```
 
 
 #### Prompt
+
+- [starship/starship](https://github.com/starship/starship): custom prompt ([see my config](../starship/README.md))
 
 ```fish
 set -gx STARSHIP_CONFIG "$XDG_CONFIG_HOME/starship/starship.toml"
