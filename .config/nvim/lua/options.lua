@@ -1,20 +1,35 @@
+--- vim.g ---
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 vim.g.have_nerd_font = true
 
+vim.g.snacks_animate = false
+
+--- vim.opt ---
+
+vim.opt.title = true
+
+vim.opt.autowrite = true
+vim.opt.autowriteall = true
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 
-vim.opt.mouse = "a"
-
-vim.opt.showmode = false
-
-vim.schedule(function()
-	vim.opt.clipboard = "unnamedplus"
-end)
-
+vim.opt.wrap = false
 vim.opt.breakindent = true
+
+vim.opt.mouse = ""
+vim.opt.mousemodel = "extend"
+
+vim.opt.showmode = false -- already shown in statusline
+
+vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus"
+
+vim.opt.conceallevel = 2
+
+vim.opt.confirm = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -23,31 +38,43 @@ vim.opt.undofile = true
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.inccommand = "split"
+
+vim.opt.updatetime = 200
+vim.opt.timeoutlen = vim.g.vscode and 1000 or 300
+
+vim.opt.expandtab = true
+vim.opt.tabstop = 2
+vim.opt.shiftround = true
+vim.opt.shiftwidth = 2
+vim.opt.smartindent = true
+vim.opt.autoindent = true
+
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.scrolloff = 4
 
-vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300
+vim.opt.smoothscroll = true
 
-vim.opt.cursorline = true
-vim.opt.cursorlineopt = "number"
-
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-
-vim.opt.smartindent = true
-
-vim.opt.wrap = false
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
+-- vim.opt.foldtext = ""
 
 vim.opt.termguicolors = true
 
--- vim.opt.sidescroll = 0
+vim.opt.splitright = true
 
 vim.opt.guicursor =
-	"n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
+"n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
 
-vim.schedule(function()
-	vim.api.nvim_set_hl(0, "Cursor", { fg = "#ffffff", bg = "#528bff" })
-end)
+vim.opt.winborder = "rounded"
+
+vim.opt.cmdheight = 0

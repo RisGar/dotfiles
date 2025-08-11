@@ -1,4 +1,4 @@
-# neovim config
+# Neovim config
 
-<!--  this is a comment -->
+- Uses [LazyVim](https://www.lazyvim.org/) configurations for plugins
 
