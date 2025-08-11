@@ -1,14 +1,14 @@
-*
-!*/
+# *
+# !*/
 
-#!.config/
-!.config/**
-!.hushlogin
-!.tool-versions
-!README.md
-!.gitignore
-!.Brewfile
-!LICENSE
-!.bashrc
+##!.config/
+#!.config/**
+#!.hushlogin
+#!.tool-versions
+#!README.md
+#!.gitignore
+#!.Brewfile
+#!LICENSE
+#!.bashrc
 
 **/.DS_Store
