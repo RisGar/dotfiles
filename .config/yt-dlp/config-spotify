@@ -3,4 +3,4 @@
 --audio-quality 0
 --embed-thumbnail
 --embed-metadata
--o ~/Music/youtube-dls/%(title)s.%(ext)s
+-o ~/Music/Spotify/%(title)s.%(ext)s
