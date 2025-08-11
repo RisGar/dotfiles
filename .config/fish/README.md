@@ -6,8 +6,7 @@ tangle: /Users/rishab/.config/fish/config.fish
 
 - My configuration for the fish shell.
 
-- All configuration is done inside of `README.md` which is tangled to `config.fish`. The other directories like `conf.d` only contain files managed by fisher or homebrew.
-
+- All configuration is done inside of `README.md` which is tangled to `config.fish` and `fish_plugins`. The other directories only contain files managed by fisher.
 
 ## Sources
 

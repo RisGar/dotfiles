@@ -1,4 +1,2 @@
-*
-!.gitignore
-!fish_plugins
-!README.md
+config.fish
+conf.d/secrets.fish
