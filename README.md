@@ -4,16 +4,13 @@ My configuration files for my MacBook (AArch64).
 
 ## Configurations & Scripts
 
-- fish shell
-- fastfetch
-- github cli
+- fish 
+- neovim 
+- mise
+- lf
 - lazygit
-- lf file manager
-- neovim (lazyvim)
-- starship prompt
-- yt-dlp
-- asdf (node.js)
-- mpv (unfinished)
+- fastfetch
+- starship 
 
 ## Installation, Requirements, etc.
 

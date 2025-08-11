@@ -5,7 +5,8 @@ return {
     opts = {
       options = {
         transparency = true,
-        cursorline = true
+        cursorline = true,
+        lualine_transparency = true,
       },
       highlights = {
         SnacksIndentScope = { fg = "${fg}" },
@@ -23,17 +24,21 @@ return {
     end,
   },
 
-  { -- icon & status line
-    "echasnovski/mini.statusline",
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
-      use_icons = true,
-    },
-    config = function(_, opts)
-      require("mini.statusline").setup({ opts })
-      require("mini.statusline").section_location = function()
-        return "%2l:%-2v"
-      end
-    end,
+      options = {
+        component_separators = '',
+        section_separators = '',
+      }
+    }
   },
 
+  {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    opts = {}
+  },
 }

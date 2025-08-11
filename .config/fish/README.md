@@ -46,16 +46,14 @@ set -gx XDG_STATE_HOME "$HOME/.local/state"
 set -gx XDG_CACHE_HOME "$HOME/.cache"
 
 set -gx HOMEBREW_PREFIX $(/opt/homebrew/bin/brew --prefix)
-set -gx HOMEBREW_OPT $HOMEBREW_PREFIX/opt
 
-set -gx CARGO_HOME "$XDG_DATA_HOME/cargo"
 set -gx PNPM_HOME "$XDG_DATA_HOME/pnpm"
 
-set -gx fish_user_paths "$CARGO_HOME/bin" "$HOMEBREW_PREFIX/opt/llvm/bin" "$HOMEBREW_PREFIX/opt/fzf/bin" $($HOMEBREW_PREFIX/bin/brew --prefix python)/libexec/bin \
+set -gx fish_user_paths $($HOMEBREW_PREFIX/bin/brew --prefix rustup)/bin "$HOMEBREW_PREFIX/opt/llvm/bin" "$HOMEBREW_PREFIX/opt/fzf/bin" $($HOMEBREW_PREFIX/bin/brew --prefix python)/libexec/bin \
 "$XDG_DATA_HOME/go/bin" "$HOME/.local/bin" \
 "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" "$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin" \
-"$XDG_DATA_HOME/cabal/bin" "$PNPM_HOME" "$XDG_DATA_HOME/npm/bin" "$XDG_DATA_HOME/gem/bin" "$HOME/.iterm2" "$XDG_DATA_HOME/fnm" \
-"$HOME/Library/Application Support/Coursier/bin" "$HOME/Library/Application Support/JetBrains/Toolbox/scripts" "$HOMEBREW_OPT/ruby/bin"
+"$XDG_DATA_HOME/cabal/bin" "$PNPM_HOME" "$XDG_DATA_HOME/npm/bin" "$XDG_DATA_HOME/gem/bin" \
+"$HOME/Library/Application Support/Coursier/bin" "$HOME/Library/Application Support/JetBrains/Toolbox/scripts" "$HOMEBREW_PREFIX/opt/ruby/bin"
 
 set -gx EDITOR nvim
 set -gx VISUAL nvim
@@ -94,8 +92,6 @@ zoxide init fish | source
 source /Users/rishab/.local/share/opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
 
 eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
-
-fnm env | source
 
 set -gx LC_ALL "en_GB.UTF-8"
 ```
