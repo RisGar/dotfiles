@@ -6,9 +6,6 @@ export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}"
 export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
 export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
 
-# Bat
-export BAT_THEME="OneHalfDark"
-
 # XDG
 export XDG_STATE_HOME="${HOME}"/.local/state
 export XDG_CONFIG_HOME="${HOME}"/.config
@@ -17,5 +14,3 @@ export XDG_CACHE_HOME="${HOME}"/.cache
 
 export HISTFILE="${XDG_STATE_HOME}"/bash/history
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/rishab/.cache/lm-studio/bin"
