@@ -11,7 +11,7 @@ set ignorecase true
 set sixel true
 
 set previewer mlpreview
-map i $ mlpreview $f | ov
+map i $ mlpreview $f | $PAGER
 
 # layout
 cmd recol ${{
