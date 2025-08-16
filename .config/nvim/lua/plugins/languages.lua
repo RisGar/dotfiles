@@ -40,9 +40,9 @@ return {
   {
     "mrcjkb/rustaceanvim",
     version = "^6", -- Recommended
-    lazy = false,   -- This plugin is already lazy
+    lazy = false, -- This plugin is already lazy
   },
-  {                 -- render markdown
+  {               -- render markdown
     "MeanderingProgrammer/render-markdown.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
     ---@module 'render-markdown'
@@ -89,6 +89,12 @@ return {
           TemplateParamObject = "",
         },
       },
-    }
-  }
+    },
+    memory_usage = {
+      border = "rounded",
+    },
+    symbol_info = {
+      border = "rounded",
+    },
+  },
 }

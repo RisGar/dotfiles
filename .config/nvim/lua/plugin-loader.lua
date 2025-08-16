@@ -20,13 +20,13 @@ require("lazy").setup({
     enabled = true,
     notify = false,
   },
-
   install = {
     colorscheme = { "onedark" }
+  },
+  ui = {
+    border = "rounded",
+    title = "lazy.nvim"
   }
-  -- ui = {
-  --   border = "rounded"
-  -- }
 })
 
 vim.keymap.set("n", "<leader>pl", "<cmd>Lazy<cr>", { desc = "lazy" })

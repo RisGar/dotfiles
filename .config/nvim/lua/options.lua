@@ -35,9 +35,8 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true
 
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
-vim.opt.inccommand = "split"
+vim.opt.hlsearch = false -- don't highlight previous searches
+-- vim.opt.inccommand = "split"
 
 vim.opt.updatetime = 200
 vim.opt.timeoutlen = vim.g.vscode and 1000 or 300

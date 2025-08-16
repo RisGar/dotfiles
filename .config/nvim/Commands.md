@@ -10,3 +10,5 @@
 - `C-o`: Go back after jump
 - `za`: Toggle fold under cursor
 - `z=`: Spelling suggestions
+- `J`: Join lines when positioned at first line
+- `C-z`: Suspend neovim, go back with `fg` command

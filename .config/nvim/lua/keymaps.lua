@@ -4,7 +4,6 @@ vim.keymap.set("n", "<Left>", "<Nop>")
 vim.keymap.set("n", "<Right>", "<Nop>")
 vim.keymap.set("n", "<Down>", "<Nop>")
 vim.keymap.set("n", "<Up>", "<Nop>")
--- vim.keymap.set("n", "<ScrollWheelRight>", "<Nop>") -- todo: ???
 
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "exit terminal mode" }) -- exit terminal mode
 
@@ -16,7 +15,7 @@ vim.keymap.set("n", "<leader>cC", vim.lsp.codelens.refresh, { desc = "refresh co
 vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "rename" })
 vim.keymap.set("n", "<leader>cw", vim.lsp.buf.rename, { desc = "write" })
 
-vim.keymap.set("n", "<leader>qq", "<cmd>qall<cr>", { desc = "quit all" })
+-- vim.keymap.set("n", "<leader>qq", "<cmd>qall<cr>", { desc = "quit all" })
 
 -- navigate windows using the <ctrl> hjkl keys
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "left Window", remap = true })
@@ -42,7 +41,7 @@ vim.api.nvim_create_autocmd("TextYankPost", { -- highlight when yanking (copying
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  desc = "rap and check for spell in text fts",
+  desc = "wrap and check for spell in text fts",
   group = vim.api.nvim_create_augroup("wrap-spell", { clear = true }),
   pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
   callback = function()
@@ -54,5 +53,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
   desc = "refresh codelens for current buffer",
   buffer = 0,
-  callback = function() vim.lsp.codelens.refresh({ bufnr = 0 }) end,
+  callback = function()
+    vim.lsp.codelens.refresh({ bufnr = 0 })
+  end,
 })

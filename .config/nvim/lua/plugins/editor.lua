@@ -6,7 +6,7 @@ return {
       {
         "bezhermoso/tree-sitter-ghostty",
         build = "make nvim_install",
-      }
+      },
     },
     main = "nvim-treesitter.configs",
     opts = {
@@ -23,28 +23,27 @@ return {
         "query",
         "vim",
         "vimdoc",
-        "regex"
+        "regex",
       },
       auto_install = true,
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
+      highlight = { enable = true },
       indent = { enable = true },
     },
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
 
-      local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+      -- see: https://github.com/crystal-lang-tools/tree-sitter-crystal
+      -- remove when support is upstreamed
+      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
       parser_config.crystal = {
         install_info = {
-          url = "/Users/rishab/Documents/Binaries/tree-sitter-crystal",
+          url = "Users/rishab/Documents/Binaries/tree-sitter-crystal",
           files = { "src/parser.c", "src/scanner.c" },
           branch = "main",
         },
         filetype = "cr",
       }
-    end
+    end,
   },
 
   {
@@ -60,14 +59,9 @@ return {
     event = "VimEnter",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {},
+    -- stylua: ignore
     keys = {
-      {
-        "<leader>st",
-        function()
-          Snacks.picker.todo_comments()
-        end,
-        desc = "todo",
-      },
+      { "<leader>st", function() Snacks.picker.todo_comments() end, desc = "todo", },
     },
   },
 
@@ -80,7 +74,6 @@ return {
   { -- Rainbow brackets
     url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
   },
-
 
   {
     "tris203/precognition.nvim",
@@ -111,8 +104,42 @@ return {
       --     "startify",
       -- },
     },
+    -- stylua: ignore
     keys = {
-      { "<leader>cp", function() require("precognition").peek() end, desc = "show motions" }
-    }
-  }
+      { "<leader>up", function() require("precognition").peek() end, desc = "show motions" },
+    },
+  },
+
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    vscode = true,
+    ---@type Flash.Config
+    opts = {
+      modes = {
+        search = {
+          enabled = true,
+        },
+      },
+    },
+    -- stylua: ignore
+    keys = {
+      { "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "flash" },
+      { "S",     mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "flash Treesitter" },
+      { "r",     mode = { "o" },           function() require("flash").remote() end,            desc = "remote Flash" },
+      { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "treesitter Search" },
+      { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "toggle flash search" },
+    },
+  },
+
+  {
+    "echasnovski/mini.ai",
+    version = "*",
+    opts = {},
+  },
+
+  {
+    "lewis6991/gitsigns.nvim",
+    opts = {},
+  },
 }

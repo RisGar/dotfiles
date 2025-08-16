@@ -1,4 +1,6 @@
 return {
+  { "nvim-lua/plenary.nvim" },
+
   {
     "folke/snacks.nvim",
     priority = 1000,
@@ -7,30 +9,66 @@ return {
     ---@type snacks.Config
     opts = {
       bigfile = { enabled = true },
-      indent = { enabled = true },
-      lazygit = { enabled = true },
-      -- scroll = { enabled = true },
-      rename = { enabled = true },
       image = { enabled = true },
+      indent = { enabled = true },
       input = { enabled = true },
+      lazygit = { enabled = true },
       picker = {
         enabled = true,
-        hidden = true,
-        sources = {
-          files = {
-            hidden = true
-          }
-        }
+        -- flash.nvim support in picker
+        win = {
+          input = {
+            keys = {
+              ["<C-s>"] = { "flash", mode = { "n", "i" } },
+              ["s"] = { "flash" },
+            },
+          },
+        },
+        actions = {
+          flash = function(picker)
+            require("flash").jump({
+              pattern = "^",
+              label = { after = { 0, 0 } },
+              search = {
+                mode = "search",
+                exclude = {
+                  function(win)
+                    return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "snacks_picker_list"
+                  end,
+                },
+              },
+              action = function(match)
+                local idx = picker.list:row2idx(match.pos[1])
+                picker.list:_move(idx, true, true)
+              end,
+            })
+          end,
+        },
       },
+      rename = { enabled = true },
+      scope = { enabled = true },
+      scratch = { enabled = true },
       toggle = { enabled = true },
-      words = { enabled = true }
+      words = { enabled = true },
     },
     config = function(_, opts)
       require("snacks").setup(opts)
 
       Snacks.toggle.option("spell"):map("<leader>us")
       Snacks.toggle.option("wrap"):map("<leader>uw")
+      Snacks.toggle.inlay_hints():map("<leader>uh")
+
+      -- rename support for oil.nvim
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "OilActionsPost",
+        callback = function(event)
+          if event.data.actions.type == "move" then
+            Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
+          end
+        end,
+      })
     end,
+    -- stylua: ignore
     keys = {
       --- quick pickers
       { "<leader><space>", function() Snacks.picker.smart() end,                                   desc = "smart find files" },
@@ -48,7 +86,7 @@ return {
       { "<leader>fp",      function() Snacks.picker.projects() end,                                desc = "projects" },
 
       -- git
-      { "<leader>gl",      function() Snacks.lazygit.open() end,                                   desc = "lazygit" },
+      { "<leader>gg",      function() Snacks.lazygit.open() end,                                   desc = "lazygit" },
 
       -- grep
       { "<leader>sg",      function() Snacks.picker.grep() end,                                    desc = "grep" },
@@ -65,19 +103,22 @@ return {
       { "<leader>sM",      function() Snacks.picker.man() end,                                     desc = "man pages" },
       { "<leader>ss",      function() Snacks.picker.lsp_symbols() end,                             desc = "lsp Symbols" },
       { "<leader>sS",      function() Snacks.picker.lsp_workspace_symbols() end,                   desc = "lsp workspace symbols" },
-      -- { TODO: diagonostics & trouble nvim
-      --   "<leader>sd",
-      --   function()
-      --     Snacks.picker.diagnostics()
-      --   end,
-      --   desc = "Diagnostics",
-      -- }, { "<leader>sD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
+      -- TODO: diagonostics & trouble nvim
+      -- { "<leader>sd",      function() Snacks.picker.diagnostics() end,                             desc = "Diagnostics" },
+      -- { "<leader>sD",      function() Snacks.picker.diagnostics_buffer() end,                      desc = "Buffer Diagnostics" },
 
       -- lsp gotos
       { "gd",              function() Snacks.picker.lsp_definitions() end,                         desc = "goto definition" },
       { "gr",              function() Snacks.picker.lsp_references() end,                          desc = "references",           nowait = true },
       { "gI",              function() Snacks.picker.lsp_implementations() end,                     desc = "goto implementation" },
       { "gy",              function() Snacks.picker.lsp_type_definitions() end,                    desc = "goto type definition" },
+
+      -- words
+      { "]]",              function() Snacks.words.jump(vim.v.count1) end,                         desc = "Next Reference",       mode = { "n", "t" } },
+      { "[[",              function() Snacks.words.jump(-vim.v.count1) end,                        desc = "Prev Reference",       mode = { "n", "t" } },
+
+      -- scratch
+      { "<leader>.",       function() Snacks.scratch() end,                                        desc = "scratch buffer" },
     },
   },
 }
