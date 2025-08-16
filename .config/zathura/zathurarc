@@ -1,0 +1,94 @@
+# Zathura configuration file
+# See man `man zathurarc'
+
+# open document in fit-width mode by default
+set adjust-open "best-fit"
+
+# one page per row by default
+set pages-per-row 1
+
+# stop at page boundries
+set scroll-page-aware "true"
+set scroll-full-overlap 0.01
+set scroll-step 0.01
+
+# maps
+map r reload
+map R rotate
+map p print
+map i recolor
+map f toggle_fullscreen
+map [fullscreen] f toggle_fullscreen
+
+# zoom settings
+set zoom-min 10
+
+# guioptions 
+# 'c', => command line 
+# 's', => statusbar 
+# 'h', => horizontal scrollbar 
+# 'v', => vertical scrollbar 
+set guioptions "cs"
+
+# onedark
+# set notification-error-bg "#3e4452"
+# set notification-error-fg "#c678dd"
+# set notification-warning-bg "#3e4452"
+# set notification-warning-fg "#c678dd"
+# set notification-bg "#3e4452"
+# set notification-fg "#c678dd"
+# set completion-group-bg "#3e4452"
+# set completion-group-fg "#e5c07b"
+# set completion-bg "#282c34"
+# set completion-fg "#abb2bf"
+# set completion-highlight-bg "#e5c07b"
+# set completion-highlight-fg "#3e4452"
+# set index-active-bg "#e5c07b"
+# set index-active-fg "#3e4452"
+
+# zathurarc-dark
+set font "maple mono nf cn 15"
+set default-bg "rgba(40,44,52,0.95)" 
+set default-fg "#ABB2BF" 
+
+set statusbar-bg "#rgba(40,44,52,0.95)"
+set statusbar-fg "#ABB2BF"
+
+set inputbar-bg "#rgba(40,44,52,0.95)" 
+set inputbar-fg "#ABB2BF"
+
+set notification-error-bg "#AC4142" 
+set notification-error-fg "#151515"
+
+set notification-warning-bg "#AC4142"
+set notification-warning-fg "#151515" 
+
+set highlight-color "#E5C07B80" 
+set highlight-active-color "#E06C7580" 
+
+set completion-highlight-fg "#000000" 
+set completion-highlight-bg "#00BCD4B3"
+
+set completion-bg "#30303003" 
+set completion-fg "#FFC107C4"
+
+set notification-bg "#90A959" 
+set notification-fg "#151515" 
+
+set index-bg "#rgba(40,44,52,0.95)" 
+set index-fg "#ABB2BF" 
+
+set index-active-bg "#61AFEF"
+set index-active-fg "#ABB2BF"
+
+set recolor "false"
+set recolor-lightcolor "rgba(40, 44, 52, 0.954)" #00
+set recolor-darkcolor "#ABB2BF" #06
+set recolor-reverse-video "true"
+set recolor-keephue "true"
+
+set selection-clipboard clipboard
+
+set render-loading "false"
+set scroll-step 50
+
