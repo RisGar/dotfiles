@@ -9,7 +9,12 @@ return {
     ---@type snacks.Config
     opts = {
       bigfile = { enabled = true },
-      image = { enabled = true },
+      image = {
+        enabled = true,
+        -- math = {
+        --   enabled = false,
+        -- }
+      },
       indent = { enabled = true },
       input = { enabled = true },
       lazygit = { enabled = true },
@@ -47,7 +52,6 @@ return {
       },
       rename = { enabled = true },
       scope = { enabled = true },
-      scratch = { enabled = true },
       toggle = { enabled = true },
       words = { enabled = true },
     },
@@ -103,9 +107,8 @@ return {
       { "<leader>sM",      function() Snacks.picker.man() end,                                     desc = "man pages" },
       { "<leader>ss",      function() Snacks.picker.lsp_symbols() end,                             desc = "lsp Symbols" },
       { "<leader>sS",      function() Snacks.picker.lsp_workspace_symbols() end,                   desc = "lsp workspace symbols" },
-      -- TODO: diagonostics & trouble nvim
-      -- { "<leader>sd",      function() Snacks.picker.diagnostics() end,                             desc = "Diagnostics" },
-      -- { "<leader>sD",      function() Snacks.picker.diagnostics_buffer() end,                      desc = "Buffer Diagnostics" },
+      { "<leader>sd",      function() Snacks.picker.diagnostics() end,                             desc = "Diagnostics" },
+      { "<leader>sD",      function() Snacks.picker.diagnostics_buffer() end,                      desc = "Buffer Diagnostics" },
 
       -- lsp gotos
       { "gd",              function() Snacks.picker.lsp_definitions() end,                         desc = "goto definition" },
@@ -121,4 +124,6 @@ return {
       { "<leader>.",       function() Snacks.scratch() end,                                        desc = "scratch buffer" },
     },
   },
+
+  { "ThePrimeagen/vim-be-good" },
 }

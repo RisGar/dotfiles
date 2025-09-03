@@ -1,16 +1,4 @@
 return {
-  {
-    "folke/lazydev.nvim",
-    ft = "lua", -- only load on lua files
-    opts = {
-      library = {
-        -- See the configuration section for more details
-        -- Load luvit types when the `vim.uv` word is found
-        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-      },
-    },
-  },
-
   { "mfussenegger/nvim-jdtls" },
 
   {
@@ -42,22 +30,48 @@ return {
     version = "^6", -- Recommended
     lazy = false, -- This plugin is already lazy
   },
-  {               -- render markdown
+
+  ---- Markdown ----
+
+  -- {
+  --   "iamcco/markdown-preview.nvim",
+  --   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+  --   ft = { "markdown" },
+  --   build = "cd app && npm install",
+  --   init = function()
+  --     vim.g.mkdp_filetypes = { "markdown" }
+  --   end,
+  --   keys = {
+  --     {
+  --       "<leader>cp",
+  --       ft = "markdown",
+  --       "<cmd>MarkdownPreviewToggle<cr>",
+  --       desc = "preview markdown",
+  --     },
+  --   },
+  -- },
+
+  {
     "MeanderingProgrammer/render-markdown.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons", "saghen/blink.cmp" },
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
     opts = {
       preset = "obsidian",
       completions = { blink = { enabled = true } },
-      file_types = {
-        "markdown",
-        "Avante",
+      code = {
+        sign = false,
+      },
+      heading = {
+        position = "inline",
       },
       html = {
         comment = {
           conceal = false,
         },
+      },
+      latex = {
+        enabled = false,
       },
     },
     ft = {
@@ -68,6 +82,7 @@ return {
 
   {
     "p00f/clangd_extensions.nvim",
+    lazy = true,
     opts = {
       ast = {
         role_icons = {
@@ -89,12 +104,42 @@ return {
           TemplateParamObject = "",
         },
       },
+      memory_usage = {
+        border = "rounded",
+      },
+      symbol_info = {
+        border = "rounded",
+      },
     },
-    memory_usage = {
-      border = "rounded",
+  },
+
+  {
+    "lervag/vimtex",
+    lazy = false,                                      -- we don't want to lazy load VimTeX
+    config = function()
+      vim.g.vimtex_mappings_disable = { ["n"] = { "K" } } -- disable `K` as it conflicts with LSP hover
+      vim.g.vimtex_view_method = "zathura"
+    end,
+    keys = {
+      { "<localLeader>l", "", desc = "+vimtex", ft = "tex" },
     },
-    symbol_info = {
-      border = "rounded",
+  },
+
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    dependencies = {
+      { "tpope/vim-dadbod",                     lazy = true },
+      { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
     },
+    cmd = {
+      "DBUI",
+      "DBUIToggle",
+      "DBUIAddConnection",
+      "DBUIFindBuffer",
+    },
+    init = function()
+      -- Your DBUI configuration
+      vim.g.db_ui_use_nerd_fonts = 1
+    end,
   },
 }

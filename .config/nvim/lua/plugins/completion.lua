@@ -10,7 +10,6 @@ return {
     "saghen/blink.cmp",
     dependencies = {
       "Kaiser-Yang/blink-cmp-avante",
-      -- "rafamadriz/friendly-snippets",
       { "L3MON4D3/LuaSnip",          version = "v2.*" },
       { "xzbdmw/colorful-menu.nvim", opts = {} },
     },
@@ -61,12 +60,16 @@ return {
 
       sources = {
         default = {
-          "avante",
-          "lazydev",
           "lsp",
-          "path",
-          "snippets",
           "buffer",
+          "snippets",
+          "path",
+        },
+
+        per_filetype = {
+          sql = { "snippets", "dadbod", "buffer" },
+          Avante = { "avante" },
+          lua = { inherit_defaults = true, "lazydev" },
         },
 
         providers = {
@@ -79,6 +82,14 @@ return {
             name = "LazyDev",
             module = "lazydev.integrations.blink",
             score_offset = 100,
+          },
+          dadbod = {
+            name = "Dadbod",
+            module = "vim_dadbod_completion.blink",
+          },
+          markdown = {
+            name = "RenderMarkdown",
+            module = "render-markdown.integ.blink",
           },
         },
       },

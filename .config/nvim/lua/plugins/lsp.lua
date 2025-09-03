@@ -18,17 +18,7 @@ return {
 
       vim.lsp.enable({ "gleam", "julials", "ocamllsp", "clangd" })
 
-      vim.lsp.config("ocamllsp", {
-        settings = {
-          extendedHover = { enable = true },
-          standardHover = { enable = true },
-          codelens = { enable = true },
-          duneDiagnostics = { enable = true },
-          inlayHints = { enable = true },
-          syntaxDocumentation = { enable = true },
-          merlinJumpCodeActions = { enable = true },
-        },
-      })
+      -- ocaml config in lsp/ocamllsp.lua
 
       vim.lsp.config("vtsls", {
         settings = {
@@ -60,6 +50,18 @@ return {
               },
             },
           },
+        },
+      })
+
+      vim.lsp.config("clangd", {
+        keys = {
+          { "<leader>ch", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
+        },
+      })
+
+      vim.lsp.config("texlab", {
+        keys = {
+          { "<Leader>K", "<plug>(vimtex-doc-package)", desc = "Vimtex Docs", silent = true },
         },
       })
     end,

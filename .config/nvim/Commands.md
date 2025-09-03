@@ -2,13 +2,14 @@
 
 ## Commands
 
-- `:qa`: Quit all
-- `:bw`: Close buffer
-
 ## Keybinds
 
-- `C-o`: Go back after jump
+- `.`: Repeat the last command
 - `za`: Toggle fold under cursor
 - `z=`: Spelling suggestions
 - `J`: Join lines when positioned at first line
 - `C-z`: Suspend neovim, go back with `fg` command
+- `*` / `#`: Search word under cursor
+- `==`: Auto indent
+- `>>` / `<<`: Indent & Un-indent line
+- `''` / ` `` `: Jump back to line or position

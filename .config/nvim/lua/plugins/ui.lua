@@ -14,8 +14,8 @@ return {
       },
       styles = {
         comments = "italic",
-        keywords = "bold"
-      }
+        keywords = "bold",
+      },
     },
     config = function(_, opts)
       require("onedarkpro").setup(opts)
@@ -25,20 +25,20 @@ return {
   },
 
   {
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       options = {
-        component_separators = '',
-        section_separators = '',
-      }
-    }
+        component_separators = "",
+        section_separators = "",
+      },
+    },
   },
 
   {
-    'akinsho/bufferline.nvim',
+    "akinsho/bufferline.nvim",
     version = "*",
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    opts = {}
+    dependencies = "nvim-tree/nvim-web-devicons",
+    opts = {},
   },
 }

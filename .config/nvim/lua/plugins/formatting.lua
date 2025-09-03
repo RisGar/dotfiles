@@ -17,15 +17,18 @@ return {
     ---@type conform.setupOpts
     opts = {
       formatters_by_ft = {
-        astro = { "prettierd" },
         lua = { "stylua", lsp_format = "last" },
         python = { "ruff_format", "ruff_organize_imports" },
         rust = { "rustfmt" },
         javascript = { "prettierd" },
         ocaml = { "ocamlformat" },
-        fish = { "fish_indent" },
+        dune = { "format-dune-file" },
+        fish = { "fish_indent", lsp_format = "prefer" },
         cpp = { lsp_format = "prefer" }, -- clang-format is built into clangd
+        astro = { "prettierd" },
         svelte = { "prettierd" },
+        markdown = { "prettierd", "markdownlint-cli2" },
+        ["markdown.mdx"] = { "prettierd", "markdownlint-cli2" },
       },
       default_format_opts = {
         lsp_format = "fallback",
