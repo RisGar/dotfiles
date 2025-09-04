@@ -28,7 +28,6 @@ set -gx XDG_CACHE_HOME "$HOME/.cache"
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx XDG_DATA_HOME "$HOME/.local/share"
 set -gx XDG_STATE_HOME "$HOME/.local/state"
-set -gx XDG_RUNTIME_DIR "$TMPDIR/runtime-$UID"
 ```
 
 ## Variables
@@ -78,7 +77,7 @@ set -gx JULIA_DEPOT_PATH "$XDG_DATA_HOME/julia:$JULIA_DEPOT_PATH"
 fish_add_path $($HOMEBREW_PREFIX/bin/brew --prefix rustup)/bin "$HOMEBREW_PREFIX/opt/llvm/bin" "$HOMEBREW_PREFIX/opt/fzf/bin" \
 $($HOMEBREW_PREFIX/bin/brew --prefix python)/libexec/bin "$GOPATH/bin" "$XDG_BIN_HOME" "$CARGO_HOME/bin" \
 "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" "$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin" \
-"$CABAL_DIR/bin" "$PNPM_HOME" "$GEM_HOME/bin" \
+"$CABAL_DIR/bin" "$PNPM_HOME" "$GEM_HOME/bin" "$XDG_DATA_HOME/bob/nvim-bin" \
 "$HOME/Library/Application Support/Coursier/bin" "$HOME/Library/Application Support/JetBrains/Toolbox/scripts" "$HOMEBREW_PREFIX/opt/ruby/bin"
 
 set -gx MANPATH "/opt/homebrew/opt/libarchive/share/man" $MANPATH
@@ -107,7 +106,6 @@ alias rm 'rm -i'
 alias trash="trash -F"
 alias spotify-dlp="yt-dlp --config-locations ~/.config/yt-dlp/config-spotify"
 alias iamb="iamb -C $XDG_CONFIG_HOME"
-alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
 
 function git_clone_and_cd
     git clone $argv[1]
@@ -135,15 +133,15 @@ end
 
 ## Software
 
-### npm
+### neovim
 
 - [neovim/neovim](https://github.com/neovim/neovim): [see my config](../nvim/README.md)
+- Use neovim as default editor and manpager
 
 ```fish
+set -gx EDITOR nvim -e
 set -gx VISUAL nvim
 set -gx MANPAGER "nvim +Man!"
-
-# alias vim="nvim"
 ```
 
 ### bat
@@ -155,9 +153,14 @@ set -gx BAT_THEME "OneHalfDark"
 
 set -gx HOMEBREW_BAT true
 
+# work with fd
 function fd
     command fd $argv -X bat
 end
+
+# work with ov pager
+set -gx BAT_PAGER "ov -F -H3"
+alias bat "bat --wrap=never"
 ```
 
 ### zoxide
@@ -176,10 +179,10 @@ alias .. 'z ..'
 - [eza-community/eza](https://github.com/eza-community/eza): `ls` replacement
 
 ```fish
-alias ls 'eza -a1F --color=always --group-directories-first --icons'
-alias la 'eza -aF --color=always --group-directories-first --icons' # all files and dirs
-alias ll 'eza -alF --color=always --group-directories-first --icons' # long format
-alias lt 'eza -aTF --color=always --group-directories-first --icons' # tree listing
+alias ls 'eza -a1F --color=always --group-directories-first --icons --git' # single column
+alias la 'eza -aF --color=always --group-directories-first --icons --git' # all files and dirs
+alias ll 'eza -alF --color=always --group-directories-first --icons --git' # long format
+alias lt 'eza -aTF --color=always --group-directories-first --icons --git' # tree listing
 ```
 
 ### fzf
@@ -247,7 +250,7 @@ end
 ```fish
 if status is-interactive
 and not set -q TMUX
-    exec tmux attach
+    exec tmux new -As0
 end
 ```
 
@@ -259,6 +262,12 @@ Configuration for fish to work with vi-style bindings.
 function fish_user_key_bindings
   fish_vi_key_bindings insert
 end
+
+set fish_cursor_default block blink
+set fish_cursor_insert line blink
+set fish_cursor_replace_one underscore blink
+set fish_cursor_replace underscore blink
+set fish_cursor_external line blink
 
 # bind -M visual -m default y "fish_clipboard_copy; commandline -f end-selection repaint-mode"
 # bind p forward-char "commandline -i ( pbpaste; echo )[1]" # TODO
@@ -275,10 +284,8 @@ end
 - [LinusDierheimer/fastfetch](https://github.com/LinusDierheimer/fastfetch)
 
 ```fish
-if command -q zoxide
-  function fish_greeting
+function fish_greeting
     fastfetch
-  end
 end
 ```
 
