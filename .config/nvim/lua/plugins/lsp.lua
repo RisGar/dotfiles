@@ -1,26 +1,48 @@
 return {
   {
     "mason-org/mason.nvim",
-    ---@module "mason"
-    ---@type MasonSettings
-    opts = {
-      PATH = "append",
-    },
-    keys = {
-      { "<leader>pm", "<cmd>Mason<cr>", desc = "mason" },
-    },
   },
+
   {
     "neovim/nvim-lspconfig",
     config = function()
       vim.lsp.inlay_hint.enable(true, nil)
       vim.diagnostic.config({ virtual_text = true })
 
-      vim.lsp.enable({ "gleam", "julials", "ocamllsp", "clangd" })
+      vim.lsp.enable({
+        "gleam",
+        "julials",
+        "ocamllsp",
+        "clangd",
+        "astro",
+        "docker_language_server",
+        "fish_lsp",
+        "jsonls",
+        "lua_ls",
+        "marksman",
+        "ruff",
+        "svelte",
+        "texlab",
+        "tinymist",
+        "tombi",
+        "vtsls",
+        "yamlls",
+        -- activated through seperate plugin:
+        -- jdtls
+        -- rust_analyzer
+      })
 
-      -- ocaml config in lsp/ocamllsp.lua
+      -- ocaml config in ../../lsp/ocamllsp.lua
 
       vim.lsp.config("vtsls", {
+        filetypes = {
+          "javascript",
+          "javascriptreact",
+          "javascript.jsx",
+          "typescript",
+          "typescriptreact",
+          "typescript.tsx",
+        },
         settings = {
           typescript = {
             inlayHints = {
@@ -69,33 +91,33 @@ return {
       { "j-hui/fidget.nvim", opts = { notification = { window = { winblend = 0 } } } },
     },
   },
+
   {
     "mason-org/mason-lspconfig.nvim",
     dependencies = {
-      "mason-org/mason.nvim",
+      { "mason-org/mason.nvim", opts = {} },
       "neovim/nvim-lspconfig",
     },
     opts = {
-      automatic_enable = {
-        exclude = {
-          "jdtls", -- done by nvim-jdtls
-        },
-      },
+      automatic_enable = false,
+    },
+    keys = {
+      { "<leader>pm", "<cmd>Mason<cr>", desc = "mason" },
     },
   },
 
-  {
-    "jmbuhr/otter.nvim",
-    enable = false,
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-    ---@module "otter"
-    ---@type OtterConfig
-    opts = {
-      buffers = {
-        write_to_disk = true,
-      },
-    },
-  },
+  -- {
+  --   "jmbuhr/otter.nvim",
+  --   enable = false,
+  --   dependencies = {
+  --     "nvim-treesitter/nvim-treesitter",
+  --   },
+  --   ---@module "otter"
+  --   ---@type OtterConfig
+  --   opts = {
+  --     buffers = {
+  --       write_to_disk = true,
+  --     },
+  --   },
+  -- },
 }
