@@ -2,17 +2,28 @@
   name = Rishab Garg
   email = me@rishab-garg.me
   signingkey = 7EC2233FD90AF4F1 
+
 [core]
   editor = nvim
-  autocrlf = false
-  pager = delta
+  pager = delta --pager='ov -F'
 
-; ---- Delta settings ----
+; ---- Delta w. OV ----
 [interactive]
   diffFilter = delta --color-only
+
+[pager]
+  show = delta --pager='ov -F --header 3'
+  diff = delta --features ov-diff
+  log  = delta --features ov-log
+
 [delta]
   navigate = true
   dark = true
+[delta "ov-diff"]
+    pager=ov -F --section-delimiter '^(commit|added:|removed:|renamed:|Δ)' --section-header --pattern '•'
+[delta "ov-log"]
+    pager=ov -F --section-delimiter '^commit' --section-header-num 3
+
 [merge]
   conflictstyle = zdiff3
 
@@ -35,8 +46,8 @@
   process = git-lfs filter-process
   required = true
 
-; [pull]
-;   rebase = false
+[pull]
+  rebase = false
 
 [init]
   defaultBranch = master
