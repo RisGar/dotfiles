@@ -33,24 +33,6 @@ return {
 
   ---- Markdown ----
 
-  -- {
-  --   "iamcco/markdown-preview.nvim",
-  --   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-  --   ft = { "markdown" },
-  --   build = "cd app && npm install",
-  --   init = function()
-  --     vim.g.mkdp_filetypes = { "markdown" }
-  --   end,
-  --   keys = {
-  --     {
-  --       "<leader>cp",
-  --       ft = "markdown",
-  --       "<cmd>MarkdownPreviewToggle<cr>",
-  --       desc = "preview markdown",
-  --     },
-  --   },
-  -- },
-
   {
     "MeanderingProgrammer/render-markdown.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons", "saghen/blink.cmp" },

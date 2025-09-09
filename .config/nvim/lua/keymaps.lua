@@ -16,14 +16,16 @@ vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "rename" })
 vim.keymap.set("n", "<leader>cw", vim.lsp.buf.rename, { desc = "write" })
 
 -- vim.keymap.set("n", "<leader>qq", "<cmd>qall<cr>", { desc = "quit all" })
-vim.keymap.set({ "n", "i" }, "<C-h>", "<cmd>bprevious<cr>", { desc = "previous buffer", remap = true })
-vim.keymap.set({ "n", "i" }, "<C-l>", "<cmd>bnext<cr>", { desc = "next buffer", remap = true })
+vim.keymap.set({ "n", "v", "i" }, "<C-h>", "<cmd>bprevious<cr>", { desc = "previous buffer", remap = true })
+vim.keymap.set({ "n", "v", "i" }, "<C-l>", "<cmd>bnext<cr>", { desc = "next buffer", remap = true })
 
 -- navigate windows using the <ctrl> hjkl keys
 -- vim.keymap.set({ "n", "i" }, "<C-S-h>", "<C-w>h", { desc = "left Window", remap = true })
 -- vim.keymap.set({ "n", "i" }, "<C-S-j>", "<C-w>j", { desc = "lower Window", remap = true })
 -- vim.keymap.set({ "n", "i" }, "<C-S-k>", "<C-w>k", { desc = "upper Window", remap = true })
 -- vim.keymap.set({ "n", "i" }, "<C-S-l>", "<C-w>l", { desc = "right Window", remap = true })
+
+vim.keymap.set("v", "<leader>p", '"_dP', { desc = "paste without yank" })
 
 vim.api.nvim_create_autocmd("TextYankPost", { -- highlight when yanking (copying) text
   desc = "highlight when yanking text",

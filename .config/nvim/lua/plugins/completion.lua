@@ -68,8 +68,9 @@ return {
 
         per_filetype = {
           sql = { "snippets", "dadbod", "buffer" },
-          Avante = { "avante" },
+          AvanteInput = { "avante" },
           lua = { inherit_defaults = true, "lazydev" },
+          markdown = { inherit_defaults = true, "markdown" },
         },
 
         providers = {
