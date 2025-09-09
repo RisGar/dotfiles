@@ -69,6 +69,7 @@ set -gx HAXE_STD_PATH "$HOMEBREW_PREFIX/lib/haxe/std"
 set -gx EZA_CONFIG_DIR "$XDG_CONFIG_HOME/eza"
 set -gx UNISON "$XDG_DATA_HOME"/unison
 set -gx JULIA_DEPOT_PATH "$XDG_DATA_HOME/julia:$JULIA_DEPOT_PATH"
+set -gx DOCKER_CONFIG "$XDG_CONFIG_HOME/docker"
 ```
 
 ## Path
@@ -203,18 +204,10 @@ fzf_configure_bindings --directory=\cf
 - [gokcehan/lf](https://github.com/gokcehan/lf): terminal file manager ([see my config](../lf/README.md))
 
 ```fish
-function lf -d "Launch .lf file manager with exit dir cd support"
-  set tmp (mktemp)
-  command lf -last-dir-path=$tmp $argv
-
-  if test -f $tmp
-    set dir (cat $tmp)
-    if test -n $dir -a -d $dir
-      builtin cd -- $dir
-    end
-  end
-
-  command rm -f -- $tmp
+function lf --wraps="lf" --description="lf - Terminal file manager (changing directory on exit)"
+    # `command` is needed in case `lfcd` is aliased to `lf`.
+    # Quotes will cause `cd` to not change directory if `lf` prints nothing to stdout due to an error.
+    cd "$(command lf -print-last-dir $argv)"
 end
 ```
 
@@ -250,7 +243,7 @@ end
 ```fish
 if status is-interactive
 and not set -q TMUX
-    exec tmux new -As0
+    # exec tmux new -As0
 end
 ```
 
