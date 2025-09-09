@@ -10,8 +10,9 @@ set icons
 set ignorecase true
 set sixel true
 
-set previewer mlpreview
+set previewer mlpreview 
 map i $ mlpreview $f | $PAGER
+# set dirpreviews true
 
 # layout
 cmd recol ${{
@@ -81,7 +82,7 @@ cmd on-cd &{{
 
 # eza
 cmd on-select &{{
-    lf -remote "send $id set statfmt \"$(eza -ld --color=always "$f")\""
+    lf -remote "send $id set statfmt \"$(eza -ld --color=always "$f" | sed 's/\\/\\\\/g;s/"/\\"/g')\""
 }}
 
 # ripgrep
@@ -159,6 +160,8 @@ map zp toggle-preview
 
 map <c-e> make-exec
 map <c-n> make-normal
+
+map <space> &qlmanage -p "$f" 2>/dev/null 1>/dev/null
 
 # locations
 map gh cd ~
