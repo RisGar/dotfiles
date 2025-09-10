@@ -27,6 +27,7 @@ return {
         "tombi",
         "vtsls",
         "yamlls",
+        "bashls",
         -- activated through seperate plugin:
         -- jdtls
         -- rust_analyzer
