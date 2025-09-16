@@ -1,77 +1,76 @@
 return {
-  { "nvim-lua/plenary.nvim" },
+	{ "nvim-lua/plenary.nvim" },
 
-  {
-    "folke/snacks.nvim",
-    priority = 1000,
-    lazy = false,
-    ---@module "snacks"
-    ---@type snacks.Config
-    opts = {
-      bigfile = { enabled = true },
-      image = {
-        enabled = true,
-        -- math = {
-        --   enabled = false,
-        -- }
-      },
-      indent = { enabled = true },
-      input = { enabled = true },
-      lazygit = { enabled = true },
-      picker = {
-        enabled = true,
-        -- flash.nvim support in picker
-        win = {
-          input = {
-            keys = {
-              ["<C-s>"] = { "flash", mode = { "n", "i" } },
-              ["s"] = { "flash" },
-            },
-          },
-        },
-        actions = {
-          flash = function(picker)
-            require("flash").jump({
-              pattern = "^",
-              label = { after = { 0, 0 } },
-              search = {
-                mode = "search",
-                exclude = {
-                  function(win)
-                    return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "snacks_picker_list"
-                  end,
-                },
-              },
-              action = function(match)
-                local idx = picker.list:row2idx(match.pos[1])
-                picker.list:_move(idx, true, true)
-              end,
-            })
-          end,
-        },
-      },
-      rename = { enabled = true },
-      scope = { enabled = true },
-      toggle = { enabled = true },
-      words = { enabled = true },
-    },
-    config = function(_, opts)
-      require("snacks").setup(opts)
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		---@module "snacks"
+		---@type snacks.Config
+		opts = {
+			bigfile = { enabled = true },
+			image = {
+				enabled = true,
+				-- math = {
+				--   enabled = false,
+				-- }
+			},
+			indent = { enabled = true },
+			input = { enabled = true },
+			picker = {
+				enabled = true,
+				-- flash.nvim support in picker
+				win = {
+					input = {
+						keys = {
+							["<C-s>"] = { "flash", mode = { "n", "i" } },
+							["s"] = { "flash" },
+						},
+					},
+				},
+				actions = {
+					flash = function(picker)
+						require("flash").jump({
+							pattern = "^",
+							label = { after = { 0, 0 } },
+							search = {
+								mode = "search",
+								exclude = {
+									function(win)
+										return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "snacks_picker_list"
+									end,
+								},
+							},
+							action = function(match)
+								local idx = picker.list:row2idx(match.pos[1])
+								picker.list:_move(idx, true, true)
+							end,
+						})
+					end,
+				},
+			},
+			rename = { enabled = true },
+			scope = { enabled = true },
+			toggle = { enabled = true },
+			words = { enabled = true },
+		},
+		config = function(_, opts)
+			require("snacks").setup(opts)
 
-      Snacks.toggle.option("spell"):map("<leader>us")
-      Snacks.toggle.option("wrap"):map("<leader>uw")
-      Snacks.toggle.inlay_hints():map("<leader>uh")
+			Snacks.toggle.option("spell"):map("<leader>us")
+			Snacks.toggle.option("wrap"):map("<leader>uw")
+			Snacks.toggle.inlay_hints():map("<leader>uh")
 
-      -- rename support for oil.nvim
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "OilActionsPost",
-        callback = function(event)
-          if event.data.actions.type == "move" then
-            Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
-          end
-        end,
-      })
-    end,
+			-- rename support for oil.nvim
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "OilActionsPost",
+				callback = function(event)
+					if event.data.actions.type == "move" then
+						Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
+					end
+				end,
+			})
+		end,
     -- stylua: ignore
     keys = {
       --- quick pickers
@@ -90,7 +89,6 @@ return {
       { "<leader>fp",      function() Snacks.picker.projects() end,                                desc = "projects" },
 
       -- git
-      { "<leader>gg",      function() Snacks.lazygit.open() end,                                   desc = "lazygit" },
       { "<leader>gl",      function() Snacks.picker.git_log() end,                                 desc = "Git Log" },
       { "<leader>gL",      function() Snacks.picker.git_log_line() end,                            desc = "Git Log Line" },
       { "<leader>gf",      function() Snacks.picker.git_log_file() end,                            desc = "Git Log File" },
@@ -131,7 +129,7 @@ return {
       -- scratch
       { "<leader>.",       function() Snacks.scratch() end,                                        desc = "scratch buffer" },
     },
-  },
+	},
 
-  { "ThePrimeagen/vim-be-good" },
+	{ "ThePrimeagen/vim-be-good" },
 }

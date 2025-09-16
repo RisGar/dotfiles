@@ -13,15 +13,27 @@
       "keyColor": "red",
       "format": "{5} {2}"
     },
-    { "type": "uptime", "key": " TIME", "keyColor": "yellow" },
+    {
+      "type": "uptime",
+      "key": " TIME",
+      "keyColor": "yellow"
+    },
     {
       "type": "packages",
       "key": "󰏓 PKGS",
       "keyColor": "yellow",
-      "format": "{17} formulae, {18} casks (brew)"
+      "format": "nix: {9} system, {10} user, {11} default + brew: {17} formulae, {18} casks"
     },
-    { "type": "shell", "key": "   SH", "keyColor": "green" },
-    { "type": "terminal", "key": " TERM", "keyColor": "green" },
+    {
+      "type": "shell",
+      "key": "   SH",
+      "keyColor": "green"
+    },
+    {
+      "type": "terminal",
+      "key": " TERM",
+      "keyColor": "green"
+    },
     {
       "type": "terminalfont",
       "key": " FONT",

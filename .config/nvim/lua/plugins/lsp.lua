@@ -27,6 +27,7 @@ return {
 				-- installed separately:
 				-- ocamllsp
 				-- rust-anaylzer
+				-- nixd
 			},
 		},
 	},
@@ -57,6 +58,7 @@ return {
 				"vtsls",
 				"yamlls",
 				"bashls",
+				"nixd",
 				-- activated through seperate plugin:
 				-- jdtls
 				-- rust_analyzer

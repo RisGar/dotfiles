@@ -82,6 +82,9 @@ $($HOMEBREW_PREFIX/bin/brew --prefix python)/libexec/bin "$GOPATH/bin" "$XDG_BIN
 "$HOME/Library/Application Support/Coursier/bin" "$HOME/Library/Application Support/JetBrains/Toolbox/scripts" "$HOMEBREW_PREFIX/opt/ruby/bin"
 
 set -gx MANPATH "/opt/homebrew/opt/libarchive/share/man" $MANPATH
+
+set -p fish_complete_path "$HOMEBREW_PREFIX/share/fish/vendor_completions.d" "$HOMEBREW_PREFIX/share/fish/completions"
+set -p __fish_vendor_confdirs "$HOMEBREW_PREFIX/share/fish/vendor_conf.d"
 ```
 
 ## Language hooks
@@ -245,6 +248,15 @@ if status is-interactive
 and not set -q TMUX
     # exec tmux new -As0
 end
+```
+
+### Mise
+
+- [jdx/mise](https://github.com/jdx/mise)
+
+```fish
+mise activate fish | source
+
 ```
 
 ## Keybindings
