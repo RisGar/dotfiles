@@ -1,3 +1,7 @@
+# Migrated to nix-darwin
+
+Archived in favor of [RisGar/nix-darwin](https://github.com/RisGar/nix-darwin).
+
 # dotfiles
 
 My configuration files for my MacBook (AArch64).
